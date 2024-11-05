@@ -11,9 +11,14 @@ class _nameState extends State<Loginpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
+    body:
+     Center(
       child: Container(
-        decoration: BoxDecoration(color: Color.fromARGB(132, 76, 208, 129)),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+          image: AssetImage('images/landing.jpg'),
+          fit: BoxFit.cover )
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
