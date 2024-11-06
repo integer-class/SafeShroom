@@ -12,12 +12,23 @@ TextStyle TitleTextStyle = GoogleFonts.inter(
   fontSize: 40,
 );
 
+TextStyle TitleTextStyle2 = GoogleFonts.inter(
+  color: BlackColor,
+  fontWeight: FontWeight.w700,
+  fontSize: 40,
+);
+
 TextStyle SubtitleTextStyle = GoogleFonts.inter(
   color: WhiteColor,
   fontWeight: FontWeight.w500,
   fontSize: 20,
 );
 
+TextStyle SubtitleTextStyle2 = GoogleFonts.inter(
+  color: BlackColor,
+  fontWeight: FontWeight.w500,
+  fontSize: 20,
+);
 TextStyle ButtonTextStyle = GoogleFonts.inter(
   color: WhiteColor,
   fontWeight: FontWeight.w700,

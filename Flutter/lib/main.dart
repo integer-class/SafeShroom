@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safeshroom/pages/HomePage.dart';
 import 'package:safeshroom/pages/Landingpage.dart';
 import 'package:safeshroom/pages/LoginPage.dart';
 import 'package:safeshroom/pages/SignIn.dart';
@@ -8,7 +9,7 @@ import 'package:safeshroom/pages/SignUp.dart';
 void main() {
   runApp(const MyApp());
   runApp(MaterialApp(initialRoute: '/', routes: {
-    '/': (context) => Signin(),
+    '/': (context) => Homepage(),
   }));
 }
 
