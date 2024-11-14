@@ -16,6 +16,7 @@ class MushroomController extends Controller
         $mushrooms = Mushroom::all();
 
         
+        
         return view('mushroom.index', compact('mushrooms'));
 
     }

@@ -30,7 +30,7 @@
                                 <form action="{{ route('mushroom.update', $mushroom->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-
+                                
                                     <div class="row">
                                         <!-- Nama Jamur -->
                                         <div class="col-12 col-md-6">
@@ -42,7 +42,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-
+                                
                                         <!-- Deskripsi -->
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
@@ -53,7 +53,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-
+                                
                                         <!-- Foto Jamur -->
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
@@ -68,7 +68,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-
+                                
                                         <!-- Status Beracun -->
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
@@ -82,26 +82,25 @@
                                                 @enderror
                                             </div>
                                         </div>
-
-
-                                        <!-- Tombol Submit dan Delete -->
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                    <a href="{{ route('mushroom.index') }}" class="btn btn-secondary">Cancel</a>
-
-                                                    <!-- Tombol Delete -->
-                                                    <form action="{{ route('mushroom.destroy', $mushroom->id) }}" method="POST" style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this mushroom?')">Delete</button>
-                                                    </form>
-                                                </div>
+                                
+                                        <!-- Tombol Submit -->
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                <a href="{{ route('mushroom.index') }}" class="btn btn-secondary">Cancel</a>
                                             </div>
-
                                         </div>
                                     </div>
                                 </form>
+                                
+                                <!-- Form Delete Terpisah -->
+                                <form action="{{ route('mushroom.destroy', $mushroom->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this mushroom?')">Delete</button>
+                                </form>
+                                
+                               
                             </div>
                         </div>
                     </div>
