@@ -13,16 +13,16 @@
                 <h1>Article</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Components</a></div>
-                    <div class="breadcrumb-item">Article</div>
+                    
+                    
                 </div>
             </div>
 
             <div class="section-body">
-                <div class="article-cta" style="margin-bottom: 1cm">
-                    <a href="{{ route('mushroom.create') }}"
-                        class="btn btn-primary">Add Mushroom</a>
+                <div class="center-btn" style="margin-bottom: 1cm; display: flex; justify-content: center; align-items: center; height: 1cm;">
+                    <a href="{{ route('mushroom.create') }}" class="btn btn-primary">Add Mushroom</a>
                 </div>
+                
 
                 <div class="row">
                   @foreach ($mushrooms as $mushroom)
@@ -40,6 +40,9 @@
                             <div class="article-cta">
                                 <a href="#"
                                     class="btn btn-primary">Read More</a>
+                            
+                                <a href="{{ route('mushroom.edit', $mushroom->id) }}" 
+                                   class="btn btn-warning">Edit</a>
                             </div>
                         </div>
                     </article>
@@ -51,7 +54,7 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
+    <!-- JS Libraries -->
 
     <!-- Page Specific JS File -->
 @endpush

@@ -31,3 +31,7 @@ Route::apiResource('recipes', RecipeController::class);
 Route::apiResource('articles', ArticleController::class);
 
 Route::post('/daftar', [AuthController::class, 'daftar']);
+
+//EDIT MUSHHROOMS
+Route::put('/mushroom/{id}', [MushroomController::class, 'update'])->name('mushroom.update');
+Route::delete('/mushroom/{id}', [MushroomController::class, 'destroy'])->name('mushroom.destroy');

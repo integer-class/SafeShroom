@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Mushroom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class MushroomController extends Controller
 {
@@ -64,9 +66,6 @@ class MushroomController extends Controller
     }
     
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
@@ -77,22 +76,64 @@ class MushroomController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $mushroom = Mushroom::findOrFail($id); // Mencari data jamur berdasarkan ID
+        return view('mushroom.edit', compact('mushroom'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    
+    public function update(Request $request, $id)
     {
-        //
+        $mushroom = Mushroom::findOrFail($id);
+
+        // Validasi input
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'is_poisonous' => 'required|boolean',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        // Update nama dan deskripsi jamur
+        $mushroom->name = $request->input('name');
+        $mushroom->description = $request->input('description');
+        $mushroom->is_poisonous = $request->input('is_poisonous');
+
+        // Cek apakah ada foto baru yang diupload
+        if ($request->hasFile('photo')) {
+            // Hapus foto lama jika ada
+            if ($mushroom->photo) {
+                Storage::delete('public/photos/' . $mushroom->photo);
+            }
+
+            // Simpan foto baru
+            $photoPath = $request->file('photo')->store('photos', 'public');
+            $mushroom->photo = basename($photoPath);
+        }
+
+        // Simpan perubahan
+        $mushroom->save();
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('mushroom.index')->with('success', 'Mushroom updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    
+    
+    public function destroy($id)
     {
-        //
+        $mushroom = Mushroom::findOrFail($id);
+
+        // Hapus foto jika ada
+        if ($mushroom->photo) {
+            Storage::delete('public/photos/' . $mushroom->photo);
+        }
+
+        // Hapus jamur dari database
+        $mushroom->delete();
+
+        // Redirect ke halaman daftar jamur
+        return redirect()->route('mushroom.index')->with('success', 'Mushroom deleted successfully.');
     }
+
+    
 }

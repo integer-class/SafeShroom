@@ -3,16 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MushroomController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\RecommendationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,5 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('mushroom', \App\Http\Controllers\MushroomController::class);
 });
+Route::get('/recommendation', [RecommendationController::class, 'index'])->name('recommendation.index');
+
 
 require __DIR__.'/auth.php';
