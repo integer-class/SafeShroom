@@ -43,4 +43,8 @@ class Mushroom extends Model
     {
         return $this->is_poisonous ? 'Poisonous' : 'Edible';
     }
+    public function recommendations()
+    {
+        return $this->hasMany(Recommendation::class);
+    }
 }

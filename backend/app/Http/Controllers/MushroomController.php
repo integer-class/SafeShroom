@@ -136,5 +136,21 @@ class MushroomController extends Controller
         return redirect()->route('mushroom.index')->with('success', 'Mushroom deleted successfully.');
     }
 
+    public function edible()
+    {
+        // Menampilkan jamur yang tidak beracun (edible)
+        $mushrooms = Mushroom::where('is_poisonous', false)->get(); 
+        return view('mushroom.index', compact('mushrooms'));
+    }
+
+    public function inedible()
+    {
+        // Menampilkan jamur yang beracun (inedible)
+        $mushrooms = Mushroom::where('is_poisonous', true)->get(); 
+        return view('mushroom.index', compact('mushrooms'));
+    }
+
+
+
     
 }
