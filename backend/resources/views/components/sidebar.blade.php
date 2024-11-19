@@ -21,7 +21,7 @@
             <li class="nav-item dropdown {{ Request::is('mushrooms/*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-columns"></i> 
-                    <span>Mushrooms Article</span>
+                    <span>Mushroom Catalog</span>
                 </a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('mushrooms/inedible') ? 'active' : '' }}">
@@ -41,7 +41,14 @@
                     <span>Recommendations</span>
                 </a>
             </li>
-            
+              <!-- Article Section -->
+        <li class="menu-header">Article</li>
+        <li class="nav-item {{ Request::is('articles*') ? 'active' : '' }}">
+            <a href="{{ route('articles.index') }}" class="nav-link">
+                <i class="fas fa-book"></i>
+                <span>Articles</span>
+            </a>
+        </li>
         </ul>
     </aside>
 </div>

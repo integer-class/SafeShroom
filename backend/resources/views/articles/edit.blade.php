@@ -1,41 +1,42 @@
 @extends('layouts.app')
 
-@section('title', 'Create New Article')
+@section('title', 'Edit Article')
 
 @push('style')
-    <!-- Add custom styles if needed -->
+    <!-- Tambahkan CSS jika diperlukan -->
 @endpush
 
 @section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Create New Article</h1>
+                <h1>Edit Article</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Articles</a></div>
-                    <div class="breadcrumb-item">Create Article</div>
+                    <div class="breadcrumb-item">Edit Article</div>
                 </div>
             </div>
 
             <div class="section-body">
                 <div class="row">
                     <div class="col-12 col-md-8">
-                        <!-- Card for Create Article Form -->
+                        <!-- Card untuk Form Edit Article -->
                         <div class="card">
                             <div class="card-header">
-                                <h4>Create New Article</h4>
+                                <h4>Edit Article</h4>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('articles.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('articles.update', $article->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
-
+                                    @method('PUT')
+                                    
                                     <div class="row">
-                                        <!-- Title -->
+                                        <!-- Title Article -->
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="title">Title</label>
-                                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Enter article title" value="{{ old('title') }}" required>
+                                                <label for="title">Article Title</label>
+                                                <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $article->title) }}" required>
                                                 @error('title')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
@@ -43,22 +44,26 @@
                                         </div>
 
                                         <!-- Content -->
-                                        <div class="col-12 col-md-6">
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="content">Content</label>
-                                                <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="4" placeholder="Enter article content" required>{{ old('content') }}</textarea>
+                                                <textarea class="form-control" id="content" name="content" rows="5" required>{{ old('content', $article->content) }}</textarea>
                                                 @error('content')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
 
-                                        <!-- Photo Upload -->
+                                        <!-- Featured Image -->
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="photo">Article Photo</label>
-                                                <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo" accept="image/*">
-                                                @error('photo')
+                                                <label for="image">Featured Image</label>
+                                                <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                                                @if ($article->image)
+                                                    <small>Current image:</small>
+                                                    <img src="{{ asset('storage/images/' . $article->image) }}" alt="Current Featured Image" width="100">
+                                                @endif
+                                                @error('image')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -67,11 +72,18 @@
                                         <!-- Submit Button -->
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary">Save Article</button>
+                                                <button type="submit" class="btn btn-primary">Save Changes</button>
                                                 <a href="{{ route('articles.index') }}" class="btn btn-secondary">Cancel</a>
                                             </div>
                                         </div>
                                     </div>
+                                </form>
+
+                                <!-- Form Delete Terpisah -->
+                                <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this article?')">Delete</button>
                                 </form>
                             </div>
                         </div>
@@ -83,5 +95,5 @@
 @endsection
 
 @push('scripts')
-    <!-- Add custom JavaScript if needed -->
+    <!-- Tambahkan JavaScript jika diperlukan -->
 @endpush

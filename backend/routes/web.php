@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MushroomController;
 use App\Http\Controllers\RecommendationController;
+use App\Http\Controllers\ArticleController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,5 +33,12 @@ Route::get('/mushrooms/inedible', [MushroomController::class, 'inedible'])->name
 
 //rekomedasi route
 Route::resource('recommendations', RecommendationController::class);
+//article 
+Route::resource('articles', ArticleController::class);
+Route::get('/recommendations', [RecommendationController::class, 'index'])->name('recommendations.index');
+
+
+
+
 
 require __DIR__.'/auth.php';

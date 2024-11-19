@@ -20,10 +20,6 @@ class MushroomController extends Controller
         return view('mushroom.index', compact('mushrooms'));
 
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('mushroom.create');
@@ -150,7 +146,7 @@ class MushroomController extends Controller
         return view('mushroom.index', compact('mushrooms'));
     }
 
-
+    
 
     
 }
