@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Recommendation; 
+use App\Models\Recommendation;
 use App\Models\Mushroom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +15,7 @@ class RecommendationController extends Controller
         $recommendations = Recommendation::with('mushroom')->get();
         return view('recommendations.index', compact('recommendations'));
     }
-    
+
     public function store(Request $request)
     {
         $request->validate([
@@ -24,17 +24,17 @@ class RecommendationController extends Controller
             'mushroom_id' => 'required|exists:mushrooms,id',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk file gambar
         ]);
-    
+
         $data = $request->except('photo');
-        
+
         // Simpan file gambar jika ada
         if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('recommendations', 'public'); // Simpan ke storage/public/recommendations
+            $data['photo'] = $request->file('photo')->store('photos', 'public'); // Simpan ke storage/public/recommendations
         }
-    
+
         // Simpan data ke model Recommendation
         Recommendation::create($data);
-    
+
         return redirect()->route('recommendations.index')->with('success', 'Recommendation successfully created!');
     }
     // Menampilkan form untuk membuat recommendation baru

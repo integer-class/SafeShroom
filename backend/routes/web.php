@@ -21,21 +21,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('mushroom', \App\Http\Controllers\MushroomController::class);
 });
-//view untuk dashbaord 
+//view untuk dashbaord
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
 
-//route untuk jamur edible atau engga 
+//route untuk jamur edible atau engga
 Route::get('/mushrooms/edible', [MushroomController::class, 'edible'])->name('mushroom.edible');
 Route::get('/mushrooms/inedible', [MushroomController::class, 'inedible'])->name('mushroom.inedible');
 
 //rekomedasi route
 Route::resource('recommendations', RecommendationController::class);
-//article 
+//article
 Route::resource('articles', ArticleController::class);
-Route::get('/recommendations', [RecommendationController::class, 'index'])->name('recommendations.index');
+
 
 
 

@@ -6,7 +6,7 @@
     <!-- CSS Libraries -->
 @endpush
 
-@section('main') 
+@section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
@@ -21,37 +21,39 @@
                     <a href="{{ route('articles.create') }}" class="btn btn-primary">Add Article</a>
                 </div>
 
-                <div class="row">
-                    @foreach ($articles as $article)
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                        <article class="article">
-                            <div class="article-header">
-                                <div class="article-image" style="background-image: url('{{ $article->photo ? asset('storage/' . $article->photo) : 'https://via.placeholder.com/300' }}');">
-                                </div>
-                                <div class="article-title">
-                                    <h2><a href="{{ route('articles.show', $article->id) }}">{{ $article->title }}</a></h2>
-                                </div>
-                            </div>
-                            <div class="article-details">
-                                <p>{{ Str::limit($article->content, 100) }}</p>
-                                <div class="article-cta">
-                                    <!-- Tombol Read More yang mengarah ke halaman show -->
-                                    <a href="{{ route('articles.show', $article->id) }}" class="btn btn-primary">Read More</a>
-                                    
-                                    <!-- Tombol Edit -->
-                                    <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning">Edit</a>
-                                    
-                                    <!-- Tombol Delete -->
-                                    <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    @endforeach
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Photo</th>
+                                <th>Excerpt</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($articles as $index => $article)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td><a href="{{ route('articles.show', $article->id) }}">{{ $article->title }}</a></td>
+                                    <td>
+                                        <img src="{{ $article->photo ? asset('storage/' . $article->photo) : 'https://via.placeholder.com/100' }}" alt="Photo" style="width: 100px; height: auto;">
+                                    </td>
+                                    <td>{{ Str::limit($article->content, 100) }}</td>
+                                    <td>
+                                        <a href="{{ route('articles.show', $article->id) }}" class="btn btn-primary">Read More</a>
+                                        <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning">Edit</a>
+                                        <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
@@ -62,10 +64,10 @@
     <script>
         // Modal handling (optional if you still want to use it)
         $('#readMoreModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); 
-            var title = button.data('title'); 
-            var description = button.data('description'); 
-            var photo = button.data('photo'); 
+            var button = $(event.relatedTarget);
+            var title = button.data('title');
+            var description = button.data('description');
+            var photo = button.data('photo');
 
             var modal = $(this);
             modal.find('.modal-title').text('Detail: ' + title);
