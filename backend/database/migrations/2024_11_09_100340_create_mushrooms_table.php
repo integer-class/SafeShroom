@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('mushrooms', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // Nama jamur
-            $table->text('description'); // Deskripsi jamur
-            $table->string('photo'); // photo jamur
-            $table->boolean('is_poisonous'); // Status apakah jamur beracun atau tidak
-            $table->timestamps();
+            $table->text('description')->nullable(); // Deskripsi jamur (opsional)
+            $table->string('photo')->nullable(); // Foto jamur (opsional)
+            $table->boolean('is_poisonous')->default(false); // Status apakah jamur beracun
+            $table->boolean('is_edible')->default(true); // Status apakah jamur dapat dimakan
+            $table->timestamps(); // Kolom created_at dan updated_at
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mushrooms');
+        Schema::dropIfExists('mushrooms'); 
     }
 };
