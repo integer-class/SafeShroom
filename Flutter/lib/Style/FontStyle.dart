@@ -74,7 +74,4 @@ TextStyle WelcomeTextStyle = GoogleFonts.dmSans(
 );
 
 TextStyle SectionTextStyle = GoogleFonts.montserrat(
-    color: BlackColor,
-    fontWeight: FontWeight.w700, 
-    fontSize: 20
-);
+    color: BlackColor, fontWeight: FontWeight.w700, fontSize: 20);

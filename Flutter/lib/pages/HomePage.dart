@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:safeshroom/Style/FontStyle.dart';
 import 'package:safeshroom/pages/CataloguePage.dart';
-import 'package:safeshroom/pages/Component/carousel_loading.dart';
+import 'package:safeshroom/pages/Component/BotomNavbar.dart';
+import 'package:safeshroom/pages/Component/carouselArticle.dart';
+import 'package:safeshroom/pages/Component/carouselInformation.dart';
+import 'package:safeshroom/pages/Component/floatingAction.dart';
 import 'package:safeshroom/pages/ProfilePage.dart';
 import 'package:safeshroom/pages/ScanPage.dart';
 
@@ -41,140 +44,66 @@ class _HomepageState extends State<Homepage> {
           IconButton(onPressed: () {}, icon: Image.asset("assets/Settings.png"))
         ],
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          //add background color for the entire body
-          color: Color.fromARGB(255, 190, 204, 198),
-        ),
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.all(40),
-              decoration: BoxDecoration(
-                //create a circular rectangle as the border
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
+      body: SafeArea(
+          child: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            //add background color for the entire body
+            color: Colors.white,
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 8,
               ),
-              child: Center(
+              Padding(
+                padding: EdgeInsets.only(left: 14, top: 12, right: 14),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 8,
-                    ),
+                    Text('Hello Bagas', style: HelloTextStyle),
+                    SizedBox(height: 6), // Increased spacing between texts
+                    Text('Welcome to Safeshroom', style: WelcomeTextStyle),
+                    SizedBox(height: 12), // Reduced spacing before "Article"
                     Text(
-                      'Hello Nanda',
-                      style: HelloTextStyle,
-                      textAlign: TextAlign.center,
+                      'Article',
+                      style: SectionTextStyle,
+                      textAlign: TextAlign.left,
                     ),
+                    const Divider(
+                      color: Colors.black,
+                      height: 25,
+                      thickness: 2,
+                      indent: 5,
+                      endIndent: 5,
+                    ),
+                    carouselArticle(),
                     SizedBox(
-                      height: 6,
-                    ),
+                        height: 12), // Reduced spacing before "Information"
                     Text(
-                      'Welcome to SafeShroom',
-                      style: WelcomeTextStyle,
-                      textAlign: TextAlign.center,
+                      'Information',
+                      style: SectionTextStyle,
+                      textAlign: TextAlign.left,
                     ),
+                    const Divider(
+                      color: Colors.black,
+                      height: 25,
+                      thickness: 2,
+                      indent: 5,
+                      endIndent: 5,
+                    ),
+                    carouselInformation(),
                   ],
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              margin: EdgeInsets.only(right: 100),
-              child: Column(
-                children: [
-                  Text(
-                    'Article',
-                    style: SectionTextStyle,
-                  ),
-                  CarouselLoading()
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.scanner_outlined),
-        onPressed: () {},
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 10,
-        child: Container(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = Homepage();
-                        currentTab = 0;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.home_outlined,
-                          color: currentTab == 0? Colors.blue : Colors.white,
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = Cataloguepage();
-                        currentTab = 1;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.list_outlined,
-                          color: currentTab == 0? Colors.blue : Colors.white,
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  MaterialButton(
-                    minWidth: 40,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = Profilepage();
-                        currentTab = 3;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.person,
-                          color: currentTab == 0? Colors.blue : Colors.white,
-                        ),
-                      ],
-                    ),
-                  ),
-                
-                ],
-              )
             ],
           ),
         ),
-      ),
+      )),
+      floatingActionButton: floatingAction(onPressed: () {}),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomNavbar(),
     );
   }
 }
