@@ -13,7 +13,7 @@ class floatingAction extends StatelessWidget {
       child: FloatingActionButton(
         onPressed: onPressed,
         child: const Icon(
-          Icons.scanner,
+          Icons.camera_alt,
           size: 32, // Mengatur ukuran ikon
           color: Colors.white, // Warna ikon FAB
         ),
