@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MushroomController;
 use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\MushroomSummaryController;
+
 
 
 Route::get('/', function () {
@@ -37,8 +39,8 @@ Route::resource('recommendations', RecommendationController::class);
 Route::resource('articles', ArticleController::class);
 
 
-
-
-
+//summary result 
+Route::get('/summary-results', [MushroomSummaryController::class, 'index'])->name('summary-results.index');
+Route::resource('summary-results', MushroomSummaryController::class);
 
 require __DIR__.'/auth.php';
