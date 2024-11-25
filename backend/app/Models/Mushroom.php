@@ -47,4 +47,8 @@ class Mushroom extends Model
     {
         return $this->hasMany(Recommendation::class);
     }
+    public function summaryResults()
+    {
+        return $this->hasMany(SummaryResult::class);
+    }
 }

@@ -49,6 +49,13 @@
                 <span>Articles</span>
             </a>
         </li>
+        <li class="menu-header">Summary Result</li>
+        <li class="nav-item {{ Request::is('summary-results*') ? 'active' : '' }}">
+            <a href="{{ route('summary-results.index') }}" class="nav-link">
+                <i class="fas fa-book"></i>
+                <span>Summary Results</span>
+            </a>
+        </li>        
         </ul>
     </aside>
 </div>

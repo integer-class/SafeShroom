@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Recommendation extends Model
+class SummaryResult extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'title', 'description', 'mushroom_id', 'photo',
-    ];
+    protected $fillable = ['mushroom_id', 'summary', 'photo'];
 
-   
     public function mushroom()
     {
         return $this->belongsTo(Mushroom::class);
     }
+
+ 
 }
