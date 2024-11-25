@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safeshroom/Style/FontStyle.dart';
 import 'package:safeshroom/pages/CataloguePage.dart';
 import 'package:safeshroom/pages/Component/BotomNavbar.dart';
+import 'package:safeshroom/pages/Component/CustomAppBar.dart';
 import 'package:safeshroom/pages/Component/carouselArticle.dart';
 import 'package:safeshroom/pages/Component/carouselInformation.dart';
 import 'package:safeshroom/pages/Component/floatingAction.dart';
@@ -31,18 +32,12 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: SizedBox(
-            height: 50, width: 10, child: Image.asset('images/Logo1.png')),
-        title: Text(
-          'SafeShroom',
-          style: SubtitleTextStyle2,
-          textAlign: TextAlign.left,
-        ),
-        //create a button with an setting icon on the right side of the bar
-        actions: [
-          IconButton(onPressed: () {}, icon: Image.asset("assets/Settings.png"))
-        ],
+      appBar: CustomAppBar(
+        title: 'SafeShroom',
+        onSettingsPressed: (){
+          //routing ke setting gaada konten bingung diisi apaan
+        },
+        
       ),
       body: SafeArea(
           child: SingleChildScrollView(

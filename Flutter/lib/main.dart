@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:safeshroom/pages/CataloguePage.dart';
 import 'package:safeshroom/pages/HomePage.dart';
 import 'package:safeshroom/pages/Landingpage.dart';
 import 'package:safeshroom/pages/LoginPage.dart';
+import 'package:safeshroom/pages/ProfilePage.dart';
 import 'package:safeshroom/pages/SignIn.dart';
 import 'package:safeshroom/pages/SignUp.dart';
 //import 'package:safeshroom/pages/LoginPage.dart';
 
 void main() {
-  runApp(const MyApp());
+  // runApp(const MyApp());
   runApp(MaterialApp(initialRoute: '/', routes: {
-    '/': (context) => Homepage(),
+    '/': (context) => Profilepage(),
   }));
 }
 
