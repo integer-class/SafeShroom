@@ -3,15 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
-class Check_MushroomController extends Controller
+
+class CheckMushroomController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+         // Validasi input
+        $request->validate([
+            'files.*' => 'image|mimes:jpeg,png,jpg|max:5048', // Max size 5MB
+        ]);
+
+        $files = $request->file('files');
+
+
+        $response = Http::attach(
+            'file', file_get_contents($files), $files->getClientOriginalName()
+        )->post('http://20.5.25.52/predict/'
+        );
+
+        $data = $response->json();
+
+         return response()->json([
+            'message' => 'data ditemukan',
+            'user' => $data,
+        ], 201);
+
+
+
+
     }
 
     /**

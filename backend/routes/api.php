@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\api\MushroomControllerAPI;
-use App\Http\Controllers\api\RecommendationsControllerAPI;
+use App\Http\Controllers\CheckMushroomController;
 
 
 
@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/recommendations', [AuthController::class, 'recommendations']);
         Route::get('/article', [AuthController::class, 'article']);
         Route::get('/summary-result', [AuthController::class, 'summary-result']);
-        Route::post('/check_mushroom', [HRD_AbsensiController::class, 'checkIn']);
+        Route::post('/check_mushroom', [CheckMushroomController::class, 'index']);
 
     });
 
