@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Recommendation;
+use App\Models\Mushroom;
 
 
 class CheckMushroomController extends Controller
@@ -28,10 +30,20 @@ class CheckMushroomController extends Controller
 
         $data = $response->json();
 
-         return response()->json([
-            'message' => 'data ditemukan',
-            'user' => $data,
-        ], 201);
+        $mushroom = Mushroom::where('name', $data)->first();
+        $id = $mushroom->id;
+        $mushroom = Recommendation::where('mushroom_id', $id)->first();
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Recommendations fetched successfully.',
+            'mushroom' => $data,
+            'data' => $mushroom,
+        ], 200);
+
+
+
 
 
 
