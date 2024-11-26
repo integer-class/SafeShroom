@@ -8,18 +8,25 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\api\MushroomControllerAPI;
+use App\Http\Controllers\api\RecommendationsControllerAPI;
+
+
 
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('user')->group(function () {
 
-        Route::get('/mushrooms', [MushroomControllerAPI::class, 'index']);
+        Route::get('/mushrooms', [AuthControllerAPI::class, 'mushrooms']);
+        Route::post('/recommendations', [AuthController::class, 'recommendations']);
+        Route::get('/article', [AuthController::class, 'article']);
+        Route::get('/summary-result', [AuthController::class, 'summary-result']);
     });
 
 });
 
 
 
+Route::post('/recommendations', [AuthController::class, 'recommendations']);
 
 //ROUTE FOR LOGIN
 Route::post('/login', [AuthController::class, 'login']);

@@ -17,21 +17,13 @@
             </li>
 
             <!-- Data Mushroom Section -->
-            <li class="menu-header">Data Mushroom</li>
-            <li class="nav-item dropdown {{ Request::is('mushrooms/*') ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-                    <i class="fas fa-columns"></i> 
-                    <span>Mushroom Catalog</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="{{ Request::is('mushrooms/inedible') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('mushroom.inedible') }}">Inedible</a>
-                    </li>
-                    <li class="{{ Request::is('mushrooms/edible') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('mushroom.edible') }}">Edible</a>
-                    </li>
-                </ul>
-            </li>
+        <li class="menu-header">Data Mushroom</li>
+        <li class="nav-item {{ Request::is('mushrooms') ? 'active' : '' }}">
+            <a href="{{ route('mushroom.index') }}" class="nav-link">
+                <i class="fas fa-cog"></i> 
+                <span>Mushroom Catalog</span>
+            </a>
+        </li>
 
             <!-- Recommendation Section -->
             <li class="menu-header">Recommendation</li>
