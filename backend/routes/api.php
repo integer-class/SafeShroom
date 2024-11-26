@@ -20,6 +20,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/recommendations', [AuthController::class, 'recommendations']);
         Route::get('/article', [AuthController::class, 'article']);
         Route::get('/summary-result', [AuthController::class, 'summary-result']);
+        Route::post('/check_mushroom', [HRD_AbsensiController::class, 'checkIn']);
+
     });
 
 });
@@ -30,7 +32,7 @@ Route::post('/recommendations', [AuthController::class, 'recommendations']);
 
 //ROUTE FOR LOGIN
 Route::post('/login', [AuthController::class, 'login']);
-//ROUTE FOR MUSHHROMS 
+//ROUTE FOR MUSHHROMS
 Route::apiResource('mushrooms', MushroomController::class);
 
 Route::post('/mushrooms', [MushroomController::class, 'store']);
@@ -38,7 +40,7 @@ Route::get('/mushrooms/{id}', [MushroomController::class, 'show']);
 Route::put('/mushrooms/{id}', [MushroomController::class, 'update']);
 Route::delete('/mushrooms/{id}', [MushroomController::class, 'destroy']);
 
-//ROUTE FOR USERS 
+//ROUTE FOR USERS
 Route::apiResource('users', UserController::class);
 //ROUTE FOR RECIPES
 Route::apiResource('recipes', RecipeController::class);
