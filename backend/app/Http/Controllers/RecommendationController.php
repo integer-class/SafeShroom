@@ -16,6 +16,7 @@ class RecommendationController extends Controller
         return view('recommendations.index', compact('recommendations'));
     }
 
+
     public function store(Request $request)
     {
         $request->validate([
@@ -25,7 +26,7 @@ class RecommendationController extends Controller
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk file gambar
         ]);
 
-      
+
 
         // Simpan file gambar jika ada
         if ($request->hasFile('photo')) {
@@ -68,32 +69,32 @@ class RecommendationController extends Controller
             'mushroom_id' => 'required|exists:mushrooms,id',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validasi foto
         ]);
-    
+
         // Menyimpan foto baru jika ada
         if ($request->hasFile('photo')) {
             // Hapus foto lama jika ada
             if ($recommendation->photo) {
                 Storage::disk('public')->delete($recommendation->photo);
             }
-    
+
             // Simpan foto baru
             $photoPath = $request->file('photo')->store('photos', 'public');
             $recommendation->photo = $photoPath;
         }
-    
+
         // Update data Recommendation
         $recommendation->update([
             'title' => $request->title,
             'description' => $request->description,
             'mushroom_id' => $request->mushroom_id,
         ]);
-    
+
         // Simpan perubahan foto jika ada
         $recommendation->save();
-    
+
         return redirect()->route('recommendations.index')->with('success', 'Recommendation updated successfully.');
     }
-    
+
 
     // Menghapus recommendation
     public function destroy($id)

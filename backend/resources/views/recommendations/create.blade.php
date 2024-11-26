@@ -27,7 +27,7 @@
                                 <h4>Create New Mushroom</h4>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('mushroom.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('recommendations.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="row">
@@ -81,12 +81,12 @@
                                                 @enderror
                                             </div>
                                         </div>
-
+1
                                         <!-- Save Button -->
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary">Save Mushroom</button>
-                                                <a href="{{ route('mushroom.index') }}" class="btn btn-secondary">Cancel</a>
+                                                <a href="{{ route('recommendations.index') }}" class="btn btn-secondary">Cancel</a>
                                             </div>
                                         </div>
                                     </div>

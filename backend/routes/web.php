@@ -6,6 +6,8 @@ use App\Http\Controllers\MushroomController;
 use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MushroomSummaryController;
+use App\Http\Controllers\CheckMushroomController;
+
 
 
 
@@ -39,7 +41,7 @@ Route::resource('recommendations', RecommendationController::class);
 Route::resource('articles', ArticleController::class);
 
 
-//summary result 
+//summary result
 Route::get('/summary-results', [MushroomSummaryController::class, 'index'])->name('summary-results.index');
 Route::resource('summary-results', MushroomSummaryController::class);
 
