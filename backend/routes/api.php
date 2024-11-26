@@ -26,8 +26,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
-
-
 Route::post('/recommendations', [AuthController::class, 'recommendations']);
 
 //ROUTE FOR LOGIN
@@ -39,6 +37,12 @@ Route::post('/mushrooms', [MushroomController::class, 'store']);
 Route::get('/mushrooms/{id}', [MushroomController::class, 'show']);
 Route::put('/mushrooms/{id}', [MushroomController::class, 'update']);
 Route::delete('/mushrooms/{id}', [MushroomController::class, 'destroy']);
+
+
+//route for Recomendation
+// Route::apiResource('recommendation',[RecommendationController::class]);
+Route::post('/recommendation',[]);
+
 
 //ROUTE FOR USERS
 Route::apiResource('users', UserController::class);
