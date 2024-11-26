@@ -6,12 +6,13 @@ import 'package:safeshroom/pages/LoginPage.dart';
 import 'package:safeshroom/pages/ProfilePage.dart';
 import 'package:safeshroom/pages/SignIn.dart';
 import 'package:safeshroom/pages/SignUp.dart';
+import 'package:safeshroom/pages/SummaryPage.dart';
 //import 'package:safeshroom/pages/LoginPage.dart';
 
 void main() {
   // runApp(const MyApp());
   runApp(MaterialApp(initialRoute: '/', routes: {
-    '/': (context) => Profilepage(),
+    '/': (context) => SummaryPage(),
   }));
 }
 

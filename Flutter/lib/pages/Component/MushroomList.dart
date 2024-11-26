@@ -22,7 +22,7 @@ class MushroomListTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           child: Ink(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Color(0xffD3F7E0),
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(

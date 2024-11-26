@@ -45,12 +45,7 @@ class _ProfilepageState extends State<Profilepage> {
               height: 200,
               child: Column(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black
-                    ),
-                  )
+                  
                 ],
               ),
             ))
