@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safeshroom/Style/FontStyle.dart';
+import 'package:safeshroom/controller/route_constants.dart';
 import 'package:safeshroom/pages/Component/BotomNavbar.dart';
-import 'package:safeshroom/pages/Component/CustomAppBar.dart';
 import 'package:safeshroom/pages/Component/floatingAction.dart';
 
 class Profilepage extends StatefulWidget {
@@ -12,11 +12,11 @@ class Profilepage extends StatefulWidget {
 }
 
 class _ProfilepageState extends State<Profilepage> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
         leading: SizedBox(
           height: 50,
           width: 10,
@@ -29,9 +29,8 @@ class _ProfilepageState extends State<Profilepage> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 15 ),
+            padding: const EdgeInsets.only(right: 15),
             child: IconButton(
-              
               onPressed: () {},
               icon: Icon(Icons.logout),
             ),
@@ -41,19 +40,17 @@ class _ProfilepageState extends State<Profilepage> {
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              height: 200,
-              child: Column(
-                children: [
-                  
-                ],
-              ),
-            ))
+              child: Container(
+            height: 200,
+            child: Column(
+              children: [],
+            ),
+          ))
         ],
       ),
       floatingActionButton: floatingAction(onPressed: () {}),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomNavbar(),
+      bottomNavigationBar: BottomNavbar(currentTab: RouteConstants.profile),
     );
   }
 }

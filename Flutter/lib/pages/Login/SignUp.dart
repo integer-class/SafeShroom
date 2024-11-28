@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 import "package:safeshroom/Style/FontStyle.dart";
+import "package:safeshroom/controller/route_constants.dart";
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -17,7 +19,7 @@ class _SignupState extends State<Signup> {
           icon:
               Image.asset('assets/back.png'), // Use your back button image here
           onPressed: () {
-            Navigator.pop(context); // Action to go back
+            GoRouter.of(context).go(RouteConstants.landing); // Action to go back
           },
         ),
         centerTitle: true, // Center the title

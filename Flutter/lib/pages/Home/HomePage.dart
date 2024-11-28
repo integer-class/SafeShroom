@@ -1,43 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:safeshroom/Style/FontStyle.dart';
-import 'package:safeshroom/pages/CataloguePage.dart';
+import 'package:safeshroom/controller/route_constants.dart';
 import 'package:safeshroom/pages/Component/BotomNavbar.dart';
 import 'package:safeshroom/pages/Component/CustomAppBar.dart';
 import 'package:safeshroom/pages/Component/carouselArticle.dart';
 import 'package:safeshroom/pages/Component/carouselInformation.dart';
 import 'package:safeshroom/pages/Component/floatingAction.dart';
-import 'package:safeshroom/pages/ProfilePage.dart';
-import 'package:safeshroom/pages/ScanPage.dart';
+
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
-
   @override
   State<Homepage> createState() => _HomepageState();
 }
 
 class _HomepageState extends State<Homepage> {
-  int currentTab = 0;
-
-  final List<Widget> screens = [
-    Homepage(),
-    Cataloguepage(),
-    Scanpage(),
-    Profilepage(),
-  ];
-
-  final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = Homepage();
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'SafeShroom',
-        onSettingsPressed: (){
+        onSettingsPressed: () {
           //routing ke setting gaada konten bingung diisi apaan
         },
-        
       ),
       body: SafeArea(
           child: SingleChildScrollView(
@@ -98,7 +85,7 @@ class _HomepageState extends State<Homepage> {
       )),
       floatingActionButton: floatingAction(onPressed: () {}),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomNavbar(),
+      bottomNavigationBar: BottomNavbar(currentTab: RouteConstants.home,),
     );
   }
 }

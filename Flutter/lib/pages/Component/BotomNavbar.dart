@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:safeshroom/controller/current_tab.dart';
+import 'package:safeshroom/controller/route_constants.dart';
 
 class BottomNavbar extends StatelessWidget {
-  const BottomNavbar({super.key});
+   final String currentTab;
 
+  const BottomNavbar({
+    super.key,
+    required this.currentTab,
+  });
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -17,23 +24,30 @@ class BottomNavbar extends StatelessWidget {
             MaterialButton(
               minWidth: 40,
               onPressed: () {
-                // context.go('/home');
+                if (CurrentTab != CurrentTab.home) {
+                  context.go(RouteConstants.home);
+                }
               },
-              child: const Icon(
+              child: Icon(
                 Icons.home,
-                color: Colors.black,
+                color:
+                    currentTab == RouteConstants.home ? Colors.black : Colors.blue,
               ),
             ),
-            
-            // List Button
+
+            // catalogue Button
             MaterialButton(
               minWidth: 40,
               onPressed: () {
-                // context.go('/Catalogue');
+                if (CurrentTab != CurrentTab.catalogue) {
+                  context.go(RouteConstants.catalogue);
+                }
               },
-              child: const Icon(
+              child: Icon(
                 Icons.list,
-                color: Colors.black,
+                color: currentTab == RouteConstants.catalogue
+                    ? Colors.black
+                    : Colors.blue,
               ),
             ),
 
@@ -44,11 +58,12 @@ class BottomNavbar extends StatelessWidget {
             MaterialButton(
               minWidth: 40,
               onPressed: () {
-                // context.go('/notification');
+                // context.go(RouteConstants.home);
               },
-              child: const Icon(
-                Icons.notification_add,
-                color: Colors.black,
+              child: Icon(
+                Icons.notifications,
+                color:
+                    CurrentTab == CurrentTab.home ? Colors.black : Colors.blue,
               ),
             ),
 
@@ -56,11 +71,15 @@ class BottomNavbar extends StatelessWidget {
             MaterialButton(
               minWidth: 40,
               onPressed: () {
-                // context.go('/Scanner');
+                if (CurrentTab != CurrentTab.profile) {
+                  GoRouter.of(context).go(RouteConstants.profile);
+                }
               },
               child: const Icon(
                 Icons.person,
-                color: Colors.black,
+                color: CurrentTab == CurrentTab.profile
+                    ? Colors.black
+                    : Colors.blue,
               ),
             ),
           ],

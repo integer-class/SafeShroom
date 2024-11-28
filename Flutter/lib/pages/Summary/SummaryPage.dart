@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safeshroom/Style/FontStyle.dart';
 
 class SummaryPage extends StatelessWidget {
   @override
@@ -19,6 +20,7 @@ class SummaryPage extends StatelessWidget {
         color: const Color(0xFF406363), // Background color for entire screen
         child: Column(
           children: [
+            SizedBox(height: 30,),
             // Mushroom Image
             Container(
               height: 200,
@@ -29,7 +31,11 @@ class SummaryPage extends StatelessWidget {
                   image: AssetImage('images/landing.jpg'),
                   fit: BoxFit.cover,
                 ),
-                borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: Colors.white,
+                width: 2,
+              )
               ),
             ),
             // Scrollable Content Section
@@ -41,13 +47,11 @@ class SummaryPage extends StatelessWidget {
                   children: [
                     // Title Section
                     Text(
-                      'Tiram Mushroom (Not Poisonous)',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                      'Tiram Mushroom',
+                      style: TitleTextStyle
                     ),
+                    // Subtitle Section
+                    Text('Not Poisonous',style: SubtitleTextStyle,),
                     SizedBox(height: 12),
                     // Description
                     Text(
@@ -93,7 +97,7 @@ class SummaryPage extends StatelessWidget {
               color: const Color(0xFF406363),
               padding: EdgeInsets.all(16.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
                     onPressed: () {
