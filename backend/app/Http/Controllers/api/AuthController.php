@@ -27,7 +27,7 @@ class AuthController extends Controller
                     "message" => "Invalid login details",
                     "stus" => "failed",
                 ],
-                200
+                401
             );
         }
         $user = User::where("email", $request["email"])->firstOrFail();
