@@ -79,12 +79,7 @@
                                     </div>
                                 </form>
                                 
-                                <!-- Form Delete Terpisah -->
-                                <form action="{{ route('recommendations.destroy', $recommendation->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this recommendation?')">Delete</button>
-                                </form>
+                                
                             </div>
                         </div>
                     </div>

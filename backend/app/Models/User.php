@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone_number'
+        'role',
     ];
 
     /**
@@ -43,12 +43,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    /**
-     * Relationship with Karyawan model.
-     */
-    public function karyawan()
+        public function isAdmin()
     {
-        return $this->hasOne(Karyawan::class, 'id_users');
+        return $this->role === 'admin';
     }
+
+    public function isUser()
+    {
+        return $this->role === 'user';
+    }
+
+   
 }

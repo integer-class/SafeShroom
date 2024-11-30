@@ -53,22 +53,20 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'password' => Hash::make($request->password), // Meng-hash password
+            'password' => Hash::make($request->password), 
 
         ]);
 
-        // Mengembalikan respons dengan data pengguna yang terdaftar
         return response()->json([
             'message' => 'User registered successfully',
             'user' => $user,
-        ], 201); // Status code 201 untuk created
+        ], 201); 
     }
     public function recommendations(Request $request)
     {
         $name = $request->name;
     
-        // Ambil data mushroom berdasarkan nama
+        
         $mushroom = Mushroom::where('name', $name)->first();
     
 
@@ -85,23 +83,18 @@ class AuthController extends Controller
         ], 200);
     }
     
-
-        //api mushrooms 
+ 
         public function mushrooms()
         {
-            // Ambil semua data jamur
             $mushrooms = Mushroom::all();
 
-            // Return data dalam format JSON
             return response()->json([
                 'status' => 'success',
                 'data' => $mushrooms,
             ], 200);
         }
 
-        /**
-         * Show the form for creating a new resource.
-         */
+
         public function create()
         {
             return response()->json([
