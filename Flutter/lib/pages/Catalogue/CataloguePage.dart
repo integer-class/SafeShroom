@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safeshroom/Style/FontStyle.dart';
+import 'package:safeshroom/controller/route_constants.dart';
 import 'package:safeshroom/models/mushroom.dart';
 import 'package:safeshroom/pages/Component/BotomNavbar.dart';
 import 'package:safeshroom/pages/Component/CategoryButton.dart';
@@ -34,6 +35,8 @@ final List<Mushroom> mushroomItems = [
 ];
 
 class _CataloguepageState extends State<Cataloguepage> {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +110,7 @@ class _CataloguepageState extends State<Cataloguepage> {
       ),
       floatingActionButton: floatingAction(onPressed: () {}),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomNavbar(),
+      bottomNavigationBar: BottomNavbar(currentTab: RouteConstants.catalogue ,),
     );
   }
 }
