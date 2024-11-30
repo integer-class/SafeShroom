@@ -93,7 +93,6 @@ class RecommendationController extends Controller
                 Log::error($e->getMessage());
                 return redirect()->back()->withErrors(['error' => 'Failed to update recommendation.']);
             }
-            return view('recommendations.index', compact('recommendation', 'mushroom'));
         }
 
 

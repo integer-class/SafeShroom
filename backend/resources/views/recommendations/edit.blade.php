@@ -30,7 +30,7 @@
                                 <form action="{{ route('recommendations.update', $recommendation->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-                                
+
                                     <div class="row">
                                         <!-- Title Recommendation -->
                                         <div class="col-12 col-md-6">
@@ -42,8 +42,8 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                
-                
+
+
                                     <!-- Deskripsi -->
                                         <div class="col-12">
                                             <div class="form-group">
@@ -68,18 +68,18 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                
+
                                         <!-- Tombol Submit -->
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                <a href="{{ route('recommendations.index') }}" class="btn btn-secondary">Cancel</a>
+                                                <a href="{{ route('recommendations.update') }}" class="btn btn-secondary">Cancel</a>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
-                                
-                                
+
+
                             </div>
                         </div>
                     </div>
