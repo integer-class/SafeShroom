@@ -48,7 +48,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="steps">Description</label>
-                                                <textarea class="form-control" id="steps" name="steps" rows="5" required>{{ old('steps', $recommendation->description) }}</textarea>
+                                                <textarea class="form-control" id="steps" name="description" rows="5" required>{{ old('description', $recommendation->description) }}</textarea>
                                                 @error('steps')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
