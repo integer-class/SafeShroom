@@ -114,7 +114,9 @@ class _nameState extends State<Landingpage> {
                         style: SmallTextStyle,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.go(RouteConstants.signin);
+                        },
                         child: Text(
                           'Sign In',
                           style: TextButtonTextStyle,

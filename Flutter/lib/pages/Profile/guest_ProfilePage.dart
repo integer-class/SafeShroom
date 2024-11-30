@@ -6,14 +6,14 @@ import 'package:safeshroom/pages/Component/BotomNavbar.dart';
 import 'package:safeshroom/pages/Component/floatingAction.dart';
 import 'package:safeshroom/services/AuthService.dart';
 
-class Profilepage extends StatefulWidget {
-  const Profilepage({super.key});
+class guest_ProfilePage extends StatefulWidget {
+  const guest_ProfilePage({super.key});
 
   @override
-  State<Profilepage> createState() => _ProfilepageState();
+  State<guest_ProfilePage> createState() => _guest_ProfilePageState();
 }
 
-class _ProfilepageState extends State<Profilepage> {
+class _guest_ProfilePageState extends State<guest_ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +45,7 @@ class _ProfilepageState extends State<Profilepage> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 height: 50,
@@ -65,62 +65,35 @@ class _ProfilepageState extends State<Profilepage> {
                         ),
                       ),
                     ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        child: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
               const SizedBox(height: 50),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Username',
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Email',
-                ),
-              ),
               SizedBox(
                 height: 30,
               ),
+              Text(
+                'You need to sign up to open this feature mate',
+                style: SubtitleTextStyle2,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      side: BorderSide(color: Colors.black),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      fixedSize: Size(50, 30) ,
-                      
-                    ),
-                    onPressed: () async {
-                       await AuthService().logout();
-                       context.go(RouteConstants.landing);
-                    },
-                    child: Text(
-                      'logout',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  side: BorderSide(color: Colors.black),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
+                  minimumSize: Size(100, 50),
+                ),
+                onPressed: () {
+                  context.go(RouteConstants.signup);
+                },
+                child: Text('SignUp', style: ButtonTextStyle),
+              ),
             ],
           ),
         ),
