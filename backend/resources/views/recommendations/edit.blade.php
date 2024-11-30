@@ -73,7 +73,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                <a href="{{ route('recommendations.update') }}" class="btn btn-secondary">Cancel</a>
+                                                <a href="{{ route('recommendations.index') }}" class="btn btn-secondary">Cancel</a>
                                             </div>
                                         </div>
                                     </div>
