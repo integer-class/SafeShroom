@@ -67,6 +67,7 @@ class RecommendationController extends Controller
     // Memperbarui recommendation
         public function update(Request $request, Recommendation $recommendation)
         {
+
             // Validasi input
             $validatedData = $request->validate([
                 'title' => 'required|string|max:255',
