@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Article')
+@section('title', 'Mushroom Data')
 
 @push('style')
+<!-- Tambahkan gaya khusus jika diperlukan -->
 @endpush
 
 @section('main') 
@@ -16,40 +17,44 @@
             </div>
 
             <div class="section-body">
-                <div class="center-btn" style="margin-bottom: 1cm; display: flex; justify-content: center; align-items: center; height: 1cm;">
+                <div class="center-btn" style="margin-bottom: 1cm; display: flex; justify-content: center; align-items: center;">
                     <a href="{{ route('mushroom.create') }}" class="btn btn-primary">Add Mushroom</a>
                 </div>
 
-                <div class="row">
-                  @foreach ($mushrooms as $mushroom)
-                  <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                    <article class="article">
-                        <div class="article-header">
-                            <div class="article-image" style="background-image: url('{{ asset($mushroom->photo) }}');">
-                            </div>
-                            <div class="article-title">
-                                <h2><a href="#">{{$mushroom->name}}</a></h2>
-                            </div>
-                        </div>
-                        <div class="article-details">
-                            <p>{{ Str::limit($mushroom->description, 100) }}</p>
-                            <div class="article-cta">
-                                <!-- Tombol Read More yang memicu modal -->
-                                <a href="#"
-                                   class="btn btn-primary"
-                                   data-toggle="modal"
-                                   data-target="#readMoreModal"
-                                   data-name="{{ $mushroom->name }}"
-                                   data-description="{{ $mushroom->description }}"
-                                   data-photo="{{ asset($mushroom->photo) }}">Read More</a>
-                            
-                                <a href="{{ route('mushroom.edit', $mushroom->id) }}" class="btn btn-warning">Edit</a>
-                            </div>
-                        </div>
-                    </article>
-                  </div>
-                  @endforeach
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Photo</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($mushrooms as $mushroom)
+                            <tr>
+                                <td>
+                                    <img src="{{ asset($mushroom->photo) }}" alt="Photo" style="width: 100px; height: auto; border-radius: 8px;">
+                                </td>
+                                <td>{{ $mushroom->name }}</td>
+                                <td>{{ Str::limit($mushroom->description, 50) }}</td>
+                                <td>
+                                    <a href="#"
+                                       class="btn btn-primary btn-sm"
+                                       data-toggle="modal"
+                                       data-target="#readMoreModal"
+                                       data-name="{{ $mushroom->name }}"
+                                       data-description="{{ $mushroom->description }}"
+                                       data-photo="{{ asset($mushroom->photo) }}">Read More</a>
+                                    <a href="{{ route('mushroom.edit', $mushroom->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
+            </div>
         </section>
     </div>
 
@@ -77,19 +82,18 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraries -->
-    <script>
-        $('#readMoreModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); 
-            var name = button.data('name'); 
-            var description = button.data('description'); 
-            var photo = button.data('photo'); 
+<script>
+    $('#readMoreModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); 
+        var name = button.data('name'); 
+        var description = button.data('description'); 
+        var photo = button.data('photo'); 
 
-            var modal = $(this);
-            modal.find('.modal-title').text('Detail: ' + name);
-            modal.find('#modalName').text(name);
-            modal.find('#modalDescription').text(description);
-            modal.find('#modalPhoto').attr('src', photo);
-        });
-    </script>
+        var modal = $(this);
+        modal.find('.modal-title').text('Detail: ' + name);
+        modal.find('#modalName').text(name);
+        modal.find('#modalDescription').text(description);
+        modal.find('#modalPhoto').attr('src', photo);
+    });
+</script>
 @endpush

@@ -21,36 +21,50 @@
                     <a href="{{ route('recommendations.create') }}" class="btn btn-primary">Add Recommendation</a>
                 </div>
 
-                <div class="row">
-                  @foreach ($recommendations as $recommendation)
-                  <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                    <article class="article">
-                        <div class="article-header">
-                            <div class="article-image" style="background-image: url('{{ $recommendation->photo ? asset('storage/' . $recommendation->photo) : 'https://via.placeholder.com/300' }}');">
-                            </div>
-                            <div class="article-title">
-                                <h2><a href="#">{{$recommendation->title}}</a></h2>
-                            </div>
-                        </div>
-                        <div class="article-details">
-                            <p>{{ Str::limit($recommendation->description, 100) }}</p>
-                            <div class="article-cta">
-                                <!-- Tombol Read More -->
-                                <a href="#"
-                                   class="btn btn-primary"
-                                   data-toggle="modal"
-                                   data-target="#readMoreModal"
-                                   data-title="{{ $recommendation->title }}"
-                                   data-description="{{ $recommendation->description }}"
-                                   data-photo="{{ $recommendation->photo ? asset('storage/' . $recommendation->photo) : 'https://via.placeholder.com/300' }}">Read More</a>
-                            
-                                <a href="{{ route('recommendations.edit', $recommendation->id) }}" class="btn btn-warning">Edit</a>
-                            </div>
-                        </div>
-                    </article>
-                  </div>
-                  @endforeach
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Photo</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($recommendations as $index => $recommendation)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>
+                                        <img src="{{ $recommendation->photo ? asset('storage/' . $recommendation->photo) : 'https://via.placeholder.com/50' }}" 
+                                             alt="Recommendation Image" class="img-thumbnail" style="width: 50px; height: 50px;">
+                                    </td>
+                                    <td>{{ $recommendation->title }}</td>
+                                    <td>{{ Str::limit($recommendation->description, 50) }}</td>
+                                    <td>
+                                        <a href="#"
+                                           class="btn btn-primary btn-sm"
+                                           data-toggle="modal"
+                                           data-target="#readMoreModal"
+                                           data-title="{{ $recommendation->title }}"
+                                           data-description="{{ $recommendation->description }}"
+                                           data-photo="{{ $recommendation->photo ? asset('storage/' . $recommendation->photo) : 'https://via.placeholder.com/300' }}">
+                                            Read More
+                                        </a>
+                                        <a href="{{ route('recommendations.edit', $recommendation->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('recommendations.destroy', $recommendation->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this recommendation?')">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
+            </div>
         </section>
     </div>
 

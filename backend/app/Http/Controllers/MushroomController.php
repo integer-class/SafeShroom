@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Storage;
 
 class MushroomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $mushrooms = Mushroom::all();
@@ -25,11 +22,13 @@ class MushroomController extends Controller
         return view('mushroom.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -55,7 +54,7 @@ class MushroomController extends Controller
         Mushroom::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
-            'photo' => $photoPath,  // Menyimpan path file foto
+            'photo' => $photoPath,  
             'is_poisonous' => $validated['is_poisonous'],
         ]);
     
@@ -65,12 +64,12 @@ class MushroomController extends Controller
 
     public function show(string $id)
     {
-        //
+
+    $mushroom = Mushroom::findOrFail($id);
+    return response()->json($mushroom);
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $mushroom = Mushroom::findOrFail($id); // Mencari data jamur berdasarkan ID

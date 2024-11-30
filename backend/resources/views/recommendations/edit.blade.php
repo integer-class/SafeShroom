@@ -30,7 +30,7 @@
                                 <form action="{{ route('recommendations.update', $recommendation->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-                                
+
                                     <div class="row">
                                         <!-- Title Recommendation -->
                                         <div class="col-12 col-md-6">
@@ -42,8 +42,8 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                
-                
+
+
                                     <!-- Deskripsi -->
                                         <div class="col-12">
                                             <div class="form-group">
@@ -68,7 +68,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                
+
                                         <!-- Tombol Submit -->
                                         <div class="col-12">
                                             <div class="form-group">
@@ -78,13 +78,8 @@
                                         </div>
                                     </div>
                                 </form>
-                                
-                                <!-- Form Delete Terpisah -->
-                                <form action="{{ route('recommendations.destroy', $recommendation->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this recommendation?')">Delete</button>
-                                </form>
+
+
                             </div>
                         </div>
                     </div>

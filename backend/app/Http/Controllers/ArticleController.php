@@ -43,7 +43,7 @@ class ArticleController extends Controller
     // Menampilkan artikel berdasarkan ID
     public function show(Article $article)
     {
-        return view('articles.show', compact('article'));
+        return view('articles.index', compact('article'));
     }
 
     // Mengedit artikel yang sudah ada
