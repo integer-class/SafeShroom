@@ -27,8 +27,8 @@ class RecommendationController extends Controller
         ]);
 
         // Simpan file gambar jika ada
-        $photoPath = $request->hasFile('photo') 
-            ? $request->file('photo')->store('photos', 'public') 
+        $photoPath = $request->hasFile('photo')
+            ? $request->file('photo')->store('photos', 'public')
             : null;
 
         // Buat data Recommendation baru
@@ -59,10 +59,10 @@ class RecommendationController extends Controller
     {
         $recommendation = Recommendation::findOrFail($id); // Ambil satu rekomendasi
         $mushroom = Mushroom::findOrFail($recommendation->mushroom_id); // Ambil satu jamur terkait
-    
+
         return view('recommendations.edit', compact('recommendation', 'mushroom'));
     }
-    
+
 
     // Memperbarui recommendation
         public function update(Request $request, Recommendation $recommendation)
@@ -74,7 +74,7 @@ class RecommendationController extends Controller
                 'mushroom_id' => 'required|exists:mushrooms,id',
                 'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             ]);
-        
+
             try {
                 // Jika ada foto baru, hapus foto lama dan simpan yang baru
                 if ($request->hasFile('photo')) {
@@ -83,17 +83,18 @@ class RecommendationController extends Controller
                     }
                     $validatedData['photo'] = $request->file('photo')->store('photos', 'public');
                 }
-        
+
                 // Update data recommendation
                 $recommendation->update($validatedData);
-        
+
                 return redirect()->route('recommendations.index')->with('success', 'Recommendation updated successfully.');
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
                 return redirect()->back()->withErrors(['error' => 'Failed to update recommendation.']);
             }
+            return view('recommendations.update', compact('recommendation', 'mushroom'));
         }
-    
+
 
 
 
