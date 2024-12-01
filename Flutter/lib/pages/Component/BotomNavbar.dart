@@ -1,85 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:safeshroom/controller/current_tab.dart';
 import 'package:safeshroom/controller/route_constants.dart';
 
 class BottomNavbar extends StatelessWidget {
-   final String currentTab;
+  final String currentTab;
 
   const BottomNavbar({
-    super.key,
+    Key? key,
     required this.currentTab,
-  });
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
-      notchMargin: 10,
-      child: Container(
-        height: 60,
+      notchMargin: 8.0, // Adjusted for better visual spacing
+      child: SizedBox(
+        height: 60, // Consistent height for the navbar
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             // Home Button
-            MaterialButton(
-              minWidth: 40,
+            IconButton(
               onPressed: () {
-                if (CurrentTab != CurrentTab.home) {
+                if (currentTab != RouteConstants.home) {
                   context.go(RouteConstants.home);
                 }
               },
-              child: Icon(
+              icon: Icon(
                 Icons.home,
-                color:
-                    currentTab == RouteConstants.home ? Colors.black : Colors.blue,
+                size: 30,
+                color: currentTab == RouteConstants.home ? Colors.black : Colors.blue,
               ),
             ),
 
-            // catalogue Button
-            MaterialButton(
-              minWidth: 40,
+            // Catalogue Button
+            IconButton(
               onPressed: () {
-                if (CurrentTab != CurrentTab.catalogue) {
+                if (currentTab != RouteConstants.catalogue) {
                   context.go(RouteConstants.catalogue);
                 }
               },
-              child: Icon(
+              icon: Icon(
                 Icons.list,
-                color: currentTab == RouteConstants.catalogue
-                    ? Colors.black
-                    : Colors.blue,
+                size: 30,
+                color: currentTab == RouteConstants.catalogue ? Colors.black : Colors.blue,
               ),
             ),
 
-            // Add a spacer for the center FAB
-            const SizedBox(width: 80),
+            // Spacer for FAB
+            const SizedBox(width: 60), 
 
             // Notification Button
-            MaterialButton(
-              minWidth: 40,
+            IconButton(
               onPressed: () {
-                // context.go(RouteConstants.home);
+                if (currentTab != RouteConstants.history) {
+                  context.go(RouteConstants.history);
+                }
               },
-              child: Icon(
-                Icons.notifications,
-                color:
-                    CurrentTab == CurrentTab.home ? Colors.black : Colors.blue,
+              icon: Icon(
+                Icons.history,
+                size: 30,
+                color: currentTab == RouteConstants.history ? Colors.black : Colors.blue,
               ),
             ),
 
             // Profile Button
-            MaterialButton(
-              minWidth: 40,
+            IconButton(
               onPressed: () {
-                if (CurrentTab != CurrentTab.profile) {
-                  GoRouter.of(context).go(RouteConstants.profile);
+                if (currentTab != RouteConstants.profile) {
+                  context.go(RouteConstants.profile);
                 }
               },
-              child: const Icon(
+              icon: Icon(
                 Icons.person,
-                color: CurrentTab == CurrentTab.profile
-                    ? Colors.black
-                    : Colors.blue,
+                size: 30,
+                color: currentTab == RouteConstants.profile ? Colors.black : Colors.blue,
               ),
             ),
           ],

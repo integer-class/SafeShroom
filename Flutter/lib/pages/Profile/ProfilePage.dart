@@ -125,7 +125,7 @@ class _ProfilepageState extends State<Profilepage> {
           ),
         ),
       ),
-      floatingActionButton: floatingAction(onPressed: () {}),
+      floatingActionButton: floatingAction(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavbar(currentTab: RouteConstants.profile),
     );

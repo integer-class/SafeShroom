@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:safeshroom/pages/History/historyPage.dart';
 import 'package:safeshroom/pages/Home/HomePage.dart';
 import 'package:safeshroom/pages/Catalogue/CataloguePage.dart';
 import 'package:safeshroom/pages/Landing/LandingPage.dart';
@@ -26,6 +27,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: RouteConstants.scan,
       builder: (context, state) => SummaryPage(),
+    ),
+    GoRoute(
+      path: RouteConstants.history,
+      builder: (context, state) => Historypage(),
     ),
     GoRoute(
       path: RouteConstants.profile,

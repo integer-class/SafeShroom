@@ -98,7 +98,7 @@ class _guest_ProfilePageState extends State<guest_ProfilePage> {
           ),
         ),
       ),
-      floatingActionButton: floatingAction(onPressed: () {}),
+      floatingActionButton: floatingAction(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavbar(currentTab: RouteConstants.profile),
     );

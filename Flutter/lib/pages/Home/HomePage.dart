@@ -83,7 +83,7 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       )),
-      floatingActionButton: floatingAction(onPressed: () {}),
+      floatingActionButton: floatingAction(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavbar(currentTab: RouteConstants.home,),
     );

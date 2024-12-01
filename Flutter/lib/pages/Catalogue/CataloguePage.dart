@@ -108,7 +108,7 @@ class _CataloguepageState extends State<Cataloguepage> {
           ),
         ],
       ),
-      floatingActionButton: floatingAction(onPressed: () {}),
+      floatingActionButton: floatingAction(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavbar(currentTab: RouteConstants.catalogue ,),
     );
