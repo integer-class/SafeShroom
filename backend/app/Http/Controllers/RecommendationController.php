@@ -17,7 +17,7 @@ class RecommendationController extends Controller
     }
 
 
-        public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -61,40 +61,35 @@ class RecommendationController extends Controller
         $mushroom = Mushroom::findOrFail($recommendation->mushroom_id); // Ambil satu jamur terkait
 
         return view('recommendations.edit', compact('recommendation', 'mushroom'));
+        // return view('recommendations.edit', compact('recommendation'));
+
     }
 
 
     // Memperbarui recommendation
-        public function update(Request $request, Recommendation $recommendation)
-        {
-
-            // Validasi input
-            $validatedData = $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|string',
-                'mushroom_id' => 'required|exists:mushrooms,id',
-                'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            ]);
-
-            try {
-                // Jika ada foto baru, hapus foto lama dan simpan yang baru
-                if ($request->hasFile('photo')) {
-                    if ($recommendation->photo) {
-                        Storage::disk('public')->delete($recommendation->photo);
-                    }
-                    $validatedData['photo'] = $request->file('photo')->store('photos', 'public');
-                }
-
-                // Update data recommendation
-                $recommendation->update($validatedData);
-
-                return redirect()->route('recommendations.index')->with('success', 'Recommendation updated successfully.');
-            } catch (\Exception $e) {
-                Log::error($e->getMessage());
-                return redirect()->back()->withErrors(['error' => 'Failed to update recommendation.']);
+    public function update(Request $request, Recommendation $recommendation)
+    {
+        // Jika ada file baru yang diunggah
+        if ($request->hasFile('photo')) {
+            // Hapus file foto lama jika ada
+            if ($recommendation->photo && Storage::disk('public')->exists($recommendation->photo)) {
+                Storage::disk('public')->delete($recommendation->photo);
             }
-            return view('recommendations.index', compact('recommendation', 'mushroom'));
+            // Simpan file baru
+            $photoPath = $request->file('photo')->store('photos', 'public');
+            $request->merge(['photo' => $photoPath]); // Tambahkan path foto ke dalam request
         }
+
+        // Update data rekomendasi
+        $recommendation->update($request->only(['title', 'description', 'mushroom_id', 'photo']));
+
+        // Redirect ke halaman index dengan pesan sukses
+        return redirect()->route('recommendations.index')->with('success', 'Recommendation updated successfully.');
+
+
+        // dd($request,$recommendation);
+    }
+
 
 
 

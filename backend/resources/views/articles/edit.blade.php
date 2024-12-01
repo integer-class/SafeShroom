@@ -30,7 +30,7 @@
                                 <form action="{{ route('articles.update', $article->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-                                    
+
                                     <div class="row">
                                         <!-- Title Article -->
                                         <div class="col-12 col-md-6">
