@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
-Route::get('/mushrooms', [AuthControllerAPI::class, 'mushrooms']);
+Route::get('/mushrooms', [AuthController::class, 'mushrooms']);
 Route::post('/recommendations', [AuthController::class, 'recommendations']);
 
 
