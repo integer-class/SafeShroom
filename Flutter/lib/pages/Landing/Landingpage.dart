@@ -81,7 +81,9 @@ class _nameState extends State<Landingpage> {
                         ),
                         minimumSize: Size(double.infinity, 50),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        context.go(RouteConstants.signup);
+                      },
                       child: Text(
                         'Create an account',
                         style: ButtonTextStyle,

@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/mushrooms', [AuthControllerAPI::class, 'mushrooms']);
 Route::post('/recommendations', [AuthController::class, 'recommendations']);
 
-
+e
 
 //ROUTE FOR LOGIN
 Route::post('/login', [AuthController::class, 'login']);

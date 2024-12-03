@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:safeshroom/Style/FontStyle.dart';
 
 class SummaryPage extends StatelessWidget {
+  final dynamic mushroom; // Add these fields to accept data
+  final dynamic recommendation;
+
+  SummaryPage({required this.mushroom, required this.recommendation});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +16,7 @@ class SummaryPage extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            // Add navigation logic
+            Navigator.pop(context); // Going back to the previous page
           },
         ),
         title: Text('Summary Result', style: TextStyle(color: Colors.black)),
@@ -20,7 +25,9 @@ class SummaryPage extends StatelessWidget {
         color: const Color(0xFF406363), // Background color for entire screen
         child: Column(
           children: [
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             // Mushroom Image
             Container(
               height: 200,
@@ -28,14 +35,15 @@ class SummaryPage extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('images/landing.jpg'),
+                  image: NetworkImage(
+                      'http://13.70.136.185/${mushroom['photo'] ?? 'mushrooms/pi318.jpg'}'),
                   fit: BoxFit.cover,
                 ),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: Colors.white,
-                width: 2,
-              )
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: Colors.white,
+                  width: 2,
+                ),
               ),
             ),
             // Scrollable Content Section
@@ -47,15 +55,22 @@ class SummaryPage extends StatelessWidget {
                   children: [
                     // Title Section
                     Text(
-                      'Tiram Mushroom',
-                      style: TitleTextStyle
+                      mushroom['name'] ??
+                          'Unknown Mushroom', // Safe access for name
+                      style: TitleTextStyle,
                     ),
                     // Subtitle Section
-                    Text('Not Poisonous',style: SubtitleTextStyle,),
+                    Text(
+                      mushroom['is_poisonous'] == true
+                          ? 'Poisonous'
+                          : 'Not Poisonous',
+                      style: SubtitleTextStyle,
+                    ),
                     SizedBox(height: 12),
                     // Description
                     Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                      mushroom['description'] ??
+                          'No description available', // Safe access for description
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
@@ -73,21 +88,30 @@ class SummaryPage extends StatelessWidget {
                     ),
                     SizedBox(height: 12),
                     // Recipe Details
-                    Text(
-                      '• Sauteed Oyster Mushrooms Recipe\n'
-                      '• Ingredients: \n'
-                      '  - 200 grams of oyster mushrooms\n'
-                      '  - 2 tablespoons of olive oil (or any cooking oil)\n'
-                      '  - 2 cloves of garlic, minced\n'
-                      '  - 1 tablespoon of butter (optional)\n'
-                      '• Salt and pepper to taste\n'
-                      '• Fresh parsley or cilantro for garnish (optional)\n'
-                      '• A splash of lemon juice (optional)',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
+                    if (recommendation != null) ...[
+                      Text(
+                        recommendation['title'] ??
+                            'No Title', // Safe access for title
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
+                      SizedBox(height: 8),
+                      Text(
+                        recommendation['description'] ??
+                            'No description available', // Safe access for description
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ] else ...[
+                      Text(
+                        'No recommendation available.',
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -100,17 +124,17 @@ class SummaryPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      // Add "Save To Library" functionality
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black, backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                       child: Text('Save To Library'),
                     ),
                   ),

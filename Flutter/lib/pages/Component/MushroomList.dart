@@ -49,7 +49,7 @@ class MushroomListTile extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          mushroom.scientificName,
+                          mushroom.name,
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[600],

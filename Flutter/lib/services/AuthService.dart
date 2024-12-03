@@ -45,16 +45,16 @@ class AuthService {
     String? username,
     String? email,
     String? password,
-    String? phoneNumber,
+    
   }) async {
     try {
       final response = await http.post(
-        Uri.parse('http://13.70.136.185/api/daftar'),
+        Uri.parse('$baseUrl/daftar'),
         body: {
           'name': username,
           'email': email,
           'password': password,
-          'phone_number': phoneNumber ?? '',
+          
         },
       );
 

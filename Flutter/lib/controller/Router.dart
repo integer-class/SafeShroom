@@ -7,7 +7,6 @@ import 'package:safeshroom/pages/Login/SignIn.dart';
 import 'package:safeshroom/pages/Login/SignUp.dart';
 import 'package:safeshroom/pages/Profile/ProfilePage.dart';
 import 'package:safeshroom/pages/Profile/guest_ProfilePage.dart';
-import 'package:safeshroom/pages/Summary/SummaryPage.dart';
 import 'package:safeshroom/controller/route_constants.dart'; 
 
 final GoRouter appRouter = GoRouter(
@@ -24,10 +23,7 @@ final GoRouter appRouter = GoRouter(
       path: RouteConstants.catalogue,
       builder: (context, state) => Cataloguepage(),
     ),
-    GoRoute(
-      path: RouteConstants.scan,
-      builder: (context, state) => SummaryPage(),
-    ),
+
     GoRoute(
       path: RouteConstants.history,
       builder: (context, state) => Historypage(),

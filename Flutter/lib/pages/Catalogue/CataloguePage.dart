@@ -18,20 +18,7 @@ class Cataloguepage extends StatefulWidget {
 
 // Define the Mushroom list using the Mushroom class
 final List<Mushroom> mushroomItems = [
-  Mushroom(
-    id: '1',
-    name: 'Shiitake',
-    scientificName: 'Lentinula edodes',
-    category: 'Edible',
-    imageUrl: 'https://example.com/shiitake.jpg',
-  ),
-  Mushroom(
-    id: '2',
-    name: 'Teo',
-    scientificName: 'Jamur Tai Teo',
-    category: 'Inedible',
-    imageUrl: 'https://example.com/teo.jpg',
-  ),
+  
 ];
 
 class _CataloguepageState extends State<Cataloguepage> {
