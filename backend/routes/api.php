@@ -31,18 +31,4 @@ Route::post('/recommendations', [AuthController::class, 'recommendations']);
 
 
 
-//ROUTE FOR LOGIN
-Route::post('/login', [AuthController::class, 'login']);
-//ROUTE FOR MUSHHROMS
-Route::apiResource('mushrooms', MushroomController::class);
-//ROUTE FOR USERS
-Route::apiResource('users', UserController::class);
-//ROUTE FOR ARTICLES
-Route::apiResource('articles', ArticleController::class);
-//ROUTE FOR DAFTAR
-Route::post('/daftar', [AuthController::class, 'daftar']);
-//EDIT MUSHHROOMS
-Route::put('/mushroom/{id}', [MushroomController::class, 'update'])->name('mushroom.update');
-Route::delete('/mushroom/{id}', [MushroomController::class, 'destroy'])->name('mushroom.destroy');
-
 
