@@ -6,7 +6,7 @@
     <!-- CSS Libraries -->
 @endpush
 
-@section('main') 
+@section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
@@ -17,7 +17,8 @@
             </div>
 
             <div class="section-body">
-                <div class="center-btn" style="margin-bottom: 1cm; display: flex; justify-content: center; align-items: center; height: 1cm;">
+                <div class="center-btn"
+                    style="margin-bottom: 1cm; display: flex; justify-content: center; align-items: center; height: 1cm;">
                     <a href="{{ route('recommendations.create') }}" class="btn btn-primary">Add Recommendation</a>
                 </div>
 
@@ -37,26 +38,27 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>
-                                        <img src="{{ $recommendation->photo ? asset('storage/' . $recommendation->photo) : 'https://via.placeholder.com/50' }}" 
-                                             alt="Recommendation Image" class="img-thumbnail" style="width: 50px; height: 50px;">
+                                        <img src="{{ $recommendation->photo ? asset('storage/' . $recommendation->photo) : 'https://via.placeholder.com/50' }}"
+                                            alt="Recommendation Image" class="img-thumbnail"
+                                            style="width: 50px; height: 50px;">
                                     </td>
                                     <td>{{ $recommendation->title }}</td>
                                     <td>{{ Str::limit($recommendation->description, 50) }}</td>
                                     <td>
-                                        <a href="#"
-                                           class="btn btn-primary btn-sm"
-                                           data-toggle="modal"
-                                           data-target="#readMoreModal"
-                                           data-title="{{ $recommendation->title }}"
-                                           data-description="{{ $recommendation->description }}"
-                                           data-photo="{{ $recommendation->photo ? asset('storage/' . $recommendation->photo) : 'https://via.placeholder.com/300' }}">
+                                        <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#readMoreModal" data-title="{{ $recommendation->title }}"
+                                            data-description="{{ $recommendation->description }}"
+                                            data-photo="{{ $recommendation->photo ? asset('storage/' . $recommendation->photo) : 'https://via.placeholder.com/300' }}">
                                             Read More
                                         </a>
-                                        <a href="{{ route('recommendations.edit', $recommendation->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('recommendations.destroy', $recommendation->id) }}" method="POST" style="display:inline;">
+                                        <a href="{{ route('recommendations.edit', $recommendation->id) }}"
+                                            class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('recommendations.destroy', $recommendation->id) }}"
+                                            method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this recommendation?')">Delete</button>
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Are you sure you want to delete this recommendation?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -79,9 +81,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <img id="modalPhoto" src="" alt="Recommendation Image" class="img-fluid mb-3" />
-                    <h5 id="modalTitle"></h5>
-                    <p id="modalDescription"></p>
+                    <img id="modalPhoto" src="" alt="Recommendation Image" class="img-fluid mb-4"
+                        style="max-height: 300px; object-fit: cover; margin-bottom: 1.5rem;" />
+                    <h5 id="modalTitle" class="mb-3" style="font-weight: 500; font-size: 1.3rem;"></h5>
+                    <p id="modalDescription" style="line-height: 1.8; font-size: 1.1rem; margin-bottom: 1.5rem;"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -89,15 +92,19 @@
             </div>
         </div>
     </div>
+
+
+
+
 @endsection
 
 @push('scripts')
     <script>
-        $('#readMoreModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); 
-            var title = button.data('title'); 
-            var description = button.data('description'); 
-            var photo = button.data('photo'); 
+        $('#readMoreModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var title = button.data('title');
+            var description = button.data('description');
+            var photo = button.data('photo');
 
             var modal = $(this);
             modal.find('.modal-title').text('Detail: ' + title);

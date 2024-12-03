@@ -16,7 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('user')->group(function () {
 
-        Route::get('/mushrooms', [AuthControllerAPI::class, 'mushrooms']);
+        Route::get('/mushrooms', [AuthController::class, 'mushrooms']);
         Route::post('/recommendations', [AuthController::class, 'recommendations']);
         Route::get('/article', [AuthController::class, 'article']);
         Route::get('/summary-result', [AuthController::class, 'summary-result']);
@@ -26,23 +26,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
-Route::get('/mushrooms', [AuthControllerAPI::class, 'mushrooms']);
+Route::post('/check_mushroom', [CheckMushroomController::class, 'index']);
+Route::get('/mushrooms', [AuthController::class, 'mushrooms']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/daftar', [AuthController::class, 'daftar']);
 Route::post('/recommendations', [AuthController::class, 'recommendations']);
 
 e
-
-//ROUTE FOR LOGIN
-Route::post('/login', [AuthController::class, 'login']);
-//ROUTE FOR MUSHHROMS
-Route::apiResource('mushrooms', MushroomController::class);
-//ROUTE FOR USERS
-Route::apiResource('users', UserController::class);
-//ROUTE FOR ARTICLES
-Route::apiResource('articles', ArticleController::class);
-//ROUTE FOR DAFTAR
-Route::post('/daftar', [AuthController::class, 'daftar']);
-//EDIT MUSHHROOMS
-Route::put('/mushroom/{id}', [MushroomController::class, 'update'])->name('mushroom.update');
-Route::delete('/mushroom/{id}', [MushroomController::class, 'destroy'])->name('mushroom.destroy');
 
 

@@ -32,14 +32,14 @@ class CheckMushroomController extends Controller
 
         $mushroom = Mushroom::where('name', $data)->first();
         $id = $mushroom->id;
-        $mushroom = Recommendation::where('mushroom_id', $id)->first();
+        $recomendation = Recommendation::where('mushroom_id', $id)->first();
 
 
         return response()->json([
             'success' => true,
             'message' => 'Recommendations fetched successfully.',
-            'mushroom' => $data,
-            'data' => $mushroom,
+            'mushroom' => $mushroom,
+            'recomendation' => $recomendation,
         ], 200);
 
 
