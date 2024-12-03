@@ -16,7 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('user')->group(function () {
 
-        Route::get('/mushrooms', [AuthControllerAPI::class, 'mushrooms']);
+        Route::get('/mushrooms', [AuthController::class, 'mushrooms']);
         Route::post('/recommendations', [AuthController::class, 'recommendations']);
         Route::get('/article', [AuthController::class, 'article']);
         Route::get('/summary-result', [AuthController::class, 'summary-result']);
