@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safeshroom/Style/FontStyle.dart';
 import 'package:safeshroom/controller/route_constants.dart';
 import 'package:safeshroom/models/mushroom.dart';
+import 'package:safeshroom/models/recomendation.dart';
 import 'package:safeshroom/pages/Component/BotomNavbar.dart';
 import 'package:safeshroom/pages/Component/CategoryButton.dart';
 import 'package:safeshroom/pages/Component/CustomAppBar.dart';
@@ -23,7 +24,7 @@ class _CataloguePageState extends State<CataloguePage> {
 
   List<Mushroom> allMushrooms = [];
   List<Mushroom> displayedMushrooms = [];
-  List<dynamic> recommendations = [];
+  List<Recommendation> recommendations = [];
   String currentCategory = 'All'; // Default category
   bool isLoading = true;
   String? errorMessage;
@@ -41,7 +42,9 @@ class _CataloguePageState extends State<CataloguePage> {
         final mushrooms = (result['mushroom'] as List)
             .map((data) => Mushroom.fromJson(data))
             .toList();
-        final fetchRecommendation = (result['recommendation'] as List);
+        final fetchRecommendation = (result['recommendation'] as List)
+            .map((data) => Recommendation.fromJson(data))
+            .toList();
 
         setState(() {
           allMushrooms = mushrooms;
@@ -139,11 +142,8 @@ class _CataloguePageState extends State<CataloguePage> {
                           return MushroomListTile(
                             mushroom: mushroom,
                             onTap: () {
-                              final matchingRecommendation =
-                                  recommendations.firstWhere(
-                                      (rec) =>
-                                          rec['mushroom_id'] == mushroom.id,
-                                      orElse: () => null);
+                              Recommendation? matchingRecommendation =
+                                  recommendations.firstWhere( (rec) => rec.mushroomId == mushroom.id);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
