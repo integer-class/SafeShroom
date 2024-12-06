@@ -24,7 +24,7 @@ final GoRouter appRouter = GoRouter(
 
     GoRoute(
       path: RouteConstants.catalogue,
-      builder: (context, state) => Cataloguepage(),
+      builder: (context, state) => CataloguePage(),
     ),
 
     //History actually library same same

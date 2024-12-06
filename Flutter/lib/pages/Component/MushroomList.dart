@@ -4,7 +4,7 @@ import 'package:safeshroom/models/mushroom.dart';
 class MushroomListTile extends StatelessWidget {
   final Mushroom mushroom;
   final VoidCallback onTap;
-
+  
   const MushroomListTile({
     Key? key,
     required this.mushroom,
