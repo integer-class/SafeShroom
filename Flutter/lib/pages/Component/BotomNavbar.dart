@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safeshroom/controller/route_constants.dart';
+import 'package:safeshroom/services/AuthService.dart';
 
 class BottomNavbar extends StatelessWidget {
   final String currentTab;
@@ -10,6 +11,7 @@ class BottomNavbar extends StatelessWidget {
     required this.currentTab,
   }) : super(key: key);
 
+  
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -30,7 +32,9 @@ class BottomNavbar extends StatelessWidget {
               icon: Icon(
                 Icons.home,
                 size: 30,
-                color: currentTab == RouteConstants.home ? Colors.black : Colors.blue,
+                color: currentTab == RouteConstants.home
+                    ? Colors.black
+                    : Colors.blue,
               ),
             ),
 
@@ -44,12 +48,14 @@ class BottomNavbar extends StatelessWidget {
               icon: Icon(
                 Icons.list,
                 size: 30,
-                color: currentTab == RouteConstants.catalogue ? Colors.black : Colors.blue,
+                color: currentTab == RouteConstants.catalogue
+                    ? Colors.black
+                    : Colors.blue,
               ),
             ),
 
             // Spacer for FAB
-            const SizedBox(width: 60), 
+            const SizedBox(width: 60),
 
             // Notification Button
             IconButton(
@@ -61,7 +67,9 @@ class BottomNavbar extends StatelessWidget {
               icon: Icon(
                 Icons.history,
                 size: 30,
-                color: currentTab == RouteConstants.history ? Colors.black : Colors.blue,
+                color: currentTab == RouteConstants.history
+                    ? Colors.black
+                    : Colors.blue,
               ),
             ),
 
@@ -75,7 +83,9 @@ class BottomNavbar extends StatelessWidget {
               icon: Icon(
                 Icons.person,
                 size: 30,
-                color: currentTab == RouteConstants.profile ? Colors.black : Colors.blue,
+                color: currentTab == RouteConstants.profile
+                    ? Colors.black
+                    : Colors.blue,
               ),
             ),
           ],
