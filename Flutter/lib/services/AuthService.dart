@@ -4,6 +4,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'urlVariable.dart';
 
 class AuthService {
+  // Save user data as a single JSON object
+  Future<void> saveAuthData(Map<String, dynamic> userData) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('auth_data', json.encode(userData));
+  }
+
+  // Retrieve user data from shared preferences
+  Future<Map<String, dynamic>?> getAuthData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final authDataString = prefs.getString('auth_data');
+    if (authDataString != null) {
+      return json.decode(authDataString);
+    }
+    return null;
+  }
+
+  // Check if user is logged in
+  Future<bool> isLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey('auth_data');
+  }
+
+  // Login user
   Future<Map<String, dynamic>> login(String username, String password) async {
     try {
       final response = await http.post(
@@ -17,15 +40,17 @@ class AuthService {
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
 
-        // Save token and user info
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('user_token', jsonResponse['user_token'] ?? '');
-        await prefs.setString('user_email', jsonResponse['email'] ?? '');
+        // Save user data as JSON object
+        await saveAuthData({
+          'user_id': jsonResponse['user_id'],
+          'user_token': jsonResponse['user_token'],
+          'email': jsonResponse['email'],
+        });
 
         return {
           'success': true,
           'message': 'Login successful',
-          'data': jsonResponse
+          'data': jsonResponse,
         };
       } else {
         return {
@@ -41,11 +66,11 @@ class AuthService {
     }
   }
 
+  // Register user
   Future<Map<String, dynamic>> register({
-    String? username,
-    String? email,
-    String? password,
-    
+    required String username,
+    required String email,
+    required String password,
   }) async {
     try {
       final response = await http.post(
@@ -54,7 +79,6 @@ class AuthService {
           'name': username,
           'email': email,
           'password': password,
-          
         },
       );
 
@@ -63,31 +87,37 @@ class AuthService {
         return {
           'success': true,
           'message': 'Registration successful',
-          'data': jsonResponse
+          'data': jsonResponse,
         };
       } else {
         return {
           'success': false,
-          'message':
-              json.decode(response.body)['message'] ?? 'Registration failed',
+          'message': json.decode(response.body)['message'] ?? 'Registration failed',
         };
       }
     } catch (e) {
       return {
         'success': false,
-        'message': 'An error occurred: ${e}',
+        'message': 'An error occurred: ${e.toString()}',
       };
     }
   }
 
+  // Logout user
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('user_token');
-    await prefs.remove('user_email');
+    await prefs.remove('auth_data');
   }
 
-  Future<bool> isLoggedIn() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('user_token') != null;
+  // Retrieve user ID
+  Future<String?> getUserId() async {
+    final authData = await getAuthData();
+    return authData?['user_id'];
+  }
+
+  // Retrieve user token
+  Future<String?> getUserToken() async {
+    final authData = await getAuthData();
+    return authData?['user_token'];
   }
 }

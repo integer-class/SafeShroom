@@ -13,7 +13,6 @@ class MushroomControllerAPI extends Controller
     {
         
         $mushrooms = Mushroom::all();
-
        
         return response()->json([
             'status' => 'success',

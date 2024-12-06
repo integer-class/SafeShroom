@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:safeshroom/pages/History/guest_historyPage.dart';
 import 'package:safeshroom/pages/History/historyPage.dart';
 import 'package:safeshroom/pages/Home/HomePage.dart';
 import 'package:safeshroom/pages/Catalogue/CataloguePage.dart';
@@ -19,19 +20,34 @@ final GoRouter appRouter = GoRouter(
       path: RouteConstants.home,
       builder: (context, state) => Homepage(),
     ),
+
+
     GoRoute(
       path: RouteConstants.catalogue,
       builder: (context, state) => Cataloguepage(),
     ),
 
+    //History actually library same same
     GoRoute(
       path: RouteConstants.history,
       builder: (context, state) => Historypage(),
     ),
     GoRoute(
+      path: RouteConstants.guest_history,
+      builder: (context, state) => guest_historyPage(),
+    ),
+
+
+    //Profile Route
+    GoRoute(
       path: RouteConstants.profile,
+      builder: (context, state) => Profilepage(),
+    ),
+    GoRoute(
+      path: RouteConstants.guest_profile,
       builder: (context, state) => guest_ProfilePage(),
     ),
+
     GoRoute(
       path: RouteConstants.signup,
       builder: (context, state) => Signup(),
@@ -43,3 +59,4 @@ final GoRouter appRouter = GoRouter(
     
   ],
 );
+

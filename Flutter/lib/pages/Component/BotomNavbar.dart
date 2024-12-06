@@ -5,20 +5,26 @@ import 'package:safeshroom/services/AuthService.dart';
 
 class BottomNavbar extends StatelessWidget {
   final String currentTab;
+  final AuthService _authService = AuthService();
 
-  const BottomNavbar({
+  BottomNavbar({
     Key? key,
     required this.currentTab,
   }) : super(key: key);
-
   
+  // New method to get the appropriate route based on login status
+  Future<String> _getAppropriateRoute(String loggedInRoute, String guestRoute) async {
+    bool isLoggedIn = await _authService.isLoggedIn();
+    return isLoggedIn ? loggedInRoute : guestRoute;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
-      notchMargin: 8.0, // Adjusted for better visual spacing
+      notchMargin: 8.0,
       child: SizedBox(
-        height: 60, // Consistent height for the navbar
+        height: 60,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -40,7 +46,7 @@ class BottomNavbar extends StatelessWidget {
 
             // Catalogue Button
             IconButton(
-              onPressed: () {
+              onPressed: () async {
                 if (currentTab != RouteConstants.catalogue) {
                   context.go(RouteConstants.catalogue);
                 }
@@ -57,17 +63,22 @@ class BottomNavbar extends StatelessWidget {
             // Spacer for FAB
             const SizedBox(width: 60),
 
-            // Notification Button
+            // History Button
             IconButton(
-              onPressed: () {
+              onPressed: () async {
                 if (currentTab != RouteConstants.history) {
-                  context.go(RouteConstants.history);
+                  String route = await _getAppropriateRoute(
+                    RouteConstants.history, 
+                    RouteConstants.guest_history
+                  );
+                  context.go(route);
                 }
               },
               icon: Icon(
                 Icons.history,
                 size: 30,
-                color: currentTab == RouteConstants.history
+                color: currentTab == RouteConstants.history ||
+                        currentTab == RouteConstants.guest_history
                     ? Colors.black
                     : Colors.blue,
               ),
@@ -75,15 +86,20 @@ class BottomNavbar extends StatelessWidget {
 
             // Profile Button
             IconButton(
-              onPressed: () {
+              onPressed: () async {
                 if (currentTab != RouteConstants.profile) {
-                  context.go(RouteConstants.profile);
+                  String route = await _getAppropriateRoute(
+                    RouteConstants.profile, 
+                    RouteConstants.guest_profile
+                  );
+                  context.go(route);
                 }
               },
               icon: Icon(
                 Icons.person,
                 size: 30,
-                color: currentTab == RouteConstants.profile
+                color: currentTab == RouteConstants.profile ||
+                        currentTab == RouteConstants.guest_profile
                     ? Colors.black
                     : Colors.blue,
               ),
