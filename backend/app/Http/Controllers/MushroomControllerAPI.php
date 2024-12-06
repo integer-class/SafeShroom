@@ -11,7 +11,6 @@ class MushroomControllerAPI extends Controller
    
     public function index()
     {
-        
         $mushrooms = Mushroom::all();
        
         return response()->json([

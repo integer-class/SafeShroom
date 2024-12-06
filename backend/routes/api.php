@@ -7,9 +7,8 @@ use App\Http\Controllers\MushroomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\api\MushroomControllerAPI;
 use App\Http\Controllers\CheckMushroomController;
-
+use App\Http\Controllers\MushroomControllerAPI;
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -32,6 +31,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/daftar', [AuthController::class, 'daftar']);
 Route::post('/recommendations', [AuthController::class, 'recommendations']);
 Route::get('/getMushroom', [MushroomControllerAPI::class, 'index']);
+Route::get('/getMushroomDetail', [MushroomControllerAPI::class, 'index']);
 
 
 
