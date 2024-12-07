@@ -19,7 +19,7 @@ class HistoryController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
