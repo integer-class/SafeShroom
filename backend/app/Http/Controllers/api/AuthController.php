@@ -38,7 +38,7 @@ class AuthController extends Controller
             'email' => $user->email,
             'user_token' => $token,
             'token_type' => 'Bearer',
-            'user_id' => $user->user_id,
+            'user_id' => $user->id,
             'verified' => true,
             'status'=>'loggedin'
         ];
