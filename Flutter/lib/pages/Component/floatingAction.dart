@@ -34,6 +34,7 @@ class _floatingActionState extends State<floatingAction> {
                 width: 50,
                 height: 50,
                 child: FloatingActionButton(
+                  heroTag: 'Gallery_button',
                   onPressed: () {
                     _handleGalleryOption(context); // Pass context here
                   },
@@ -52,6 +53,7 @@ class _floatingActionState extends State<floatingAction> {
                 width: 50,
                 height: 50,
                 child: FloatingActionButton(
+                  heroTag: 'Camera_button',
                   onPressed: () {
                     _handleCameraOption(context); // Pass context here
                   },
@@ -72,6 +74,7 @@ class _floatingActionState extends State<floatingAction> {
           width: 65,
           height: 65,
           child: FloatingActionButton(
+            heroTag: 'Scanbutton',
             onPressed: () {
               setState(() {
                 isOptionsVisible = !isOptionsVisible; // Toggle visibility

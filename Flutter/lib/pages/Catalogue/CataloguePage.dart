@@ -36,35 +36,35 @@ class _CataloguePageState extends State<CataloguePage> {
   }
 
   Future<void> _fetchMushroomData() async {
-    try {
-      final result = await mushroomService.getMushroom();
-      if (result['success'] == true) {
-        final mushrooms = (result['mushroom'] as List)
-            .map((data) => Mushroom.fromJson(data))
-            .toList();
-        final fetchRecommendation = (result['recommendation'] as List)
-            .map((data) => Recommendation.fromJson(data))
-            .toList();
+  try {
+    final result = await mushroomService.getMushroom();
+    if (result['success'] == true) {
+      final mushrooms = (result['mushrooms'] as List?)
+          ?.map((data) => Mushroom.fromJson(data))
+          .toList() ?? [];
+      final fetchRecommendation = (result['recommendation'] as List?)
+          ?.map((data) => Recommendation.fromJson(data))
+          .toList() ?? [];
 
-        setState(() {
-          allMushrooms = mushrooms;
-          displayedMushrooms = mushrooms; // Default: show all
-          recommendations = fetchRecommendation;
-          isLoading = false;
-        });
-      } else {
-        setState(() {
-          errorMessage = result['message'];
-          isLoading = false;
-        });
-      }
-    } catch (e) {
       setState(() {
-        errorMessage = 'An error occurred: ${e.toString()}';
+        allMushrooms = mushrooms;
+        displayedMushrooms = mushrooms; // Default: show all
+        recommendations = fetchRecommendation;
+        isLoading = false;
+      });
+    } else {
+      setState(() {
+        errorMessage = result['message'];
         isLoading = false;
       });
     }
+  } catch (e) {
+    setState(() {
+      errorMessage = 'An error occurred: ${e.toString()}';
+      isLoading = false;
+    });
   }
+}
 
   void _filterMushrooms(String category) {
     setState(() {
@@ -140,21 +140,22 @@ class _CataloguePageState extends State<CataloguePage> {
                         itemBuilder: (context, index) {
                           final mushroom = displayedMushrooms[index];
                           return MushroomListTile(
-                            mushroom: mushroom,
-                            onTap: () {
-                              Recommendation? matchingRecommendation =
-                                  recommendations.firstWhere( (rec) => rec.mushroomId == mushroom.id);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SummaryPage(
-                                    mushroom: mushroom,
-                                    recommendation: matchingRecommendation,
-                                  ),
-                                ),
-                              );
-                            },
-                          );
+                                  mushroom: mushroom,
+                                  onTap: () {
+                                    Recommendation? matchingRecommendation = recommendations
+                                        .where((rec) => rec.mushroomId == mushroom.id)
+                                        .isNotEmpty ? recommendations.firstWhere((rec) => rec.mushroomId == mushroom.id) : null;
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SummaryPage(
+                                          mushroom: mushroom,
+                                          recommendation: matchingRecommendation,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
                         },
                       ),
                     ),

@@ -40,11 +40,14 @@ class AuthService {
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
 
+        print('Login response: $jsonResponse');
+
         // Save user data as JSON object
         await saveAuthData({
-          'user_id': jsonResponse['user_id'],
+          'user_id': jsonResponse['id'],
           'user_token': jsonResponse['user_token'],
           'email': jsonResponse['email'],
+          
         });
 
         return {

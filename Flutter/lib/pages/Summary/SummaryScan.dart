@@ -1,62 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safeshroom/Style/FontStyle.dart';
-import 'package:safeshroom/services/AuthService.dart';
-import 'package:safeshroom/services/HistoryService.dart';
+import 'package:safeshroom/controller/Router.dart';
+import 'package:safeshroom/controller/route_constants.dart';
 
-class SummaryPage extends StatefulWidget {
+class SummaryScan extends StatelessWidget {
   final dynamic mushroom; // Add these fields to accept data
   final dynamic recommendation;
 
-  SummaryPage({required this.mushroom, required this.recommendation});
-
-  @override
-  _SummaryPageState createState() => _SummaryPageState();
-}
-
-class _SummaryPageState extends State<SummaryPage> {
-  final AuthService authService = AuthService();
-  final Historyservice historyService = Historyservice();
-  bool isLoggedIn = false;
-
-  @override
-  void initState() {
-    super.initState();
-    checkLoginStatus();
-  }
-
-  Future<void> checkLoginStatus() async {
-    bool status = await authService.isLoggedIn();
-    setState(() {
-      isLoggedIn = status;
-    });
-  }
-
-  Future<void> saveToHistory() async {
-    // Check if the user is logged in
-    String? userId = await authService.getUserId();
-    print("User ID: $userId");
-
-    if (userId != null) {
-      // User is logged in, proceed to save history
-      String mushroomId = widget.mushroom.id.toString();
-      String? recommendationId = widget.recommendation?.id?.toString();
-
-      await historyService.addHistory(
-        userId: userId,
-        mushroomId: mushroomId,
-        recommendationId: recommendationId,
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Successfully saved to your history.')),
-      );
-    } else {
-      // User is not logged in
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please log in to save this to your history.')),
-      );
-    }
-  }
+  SummaryScan({required this.mushroom, required this.recommendation});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +19,7 @@ class _SummaryPageState extends State<SummaryPage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context); // Going back to the previous page
+            context.pop(); // Going back to the previous page
           },
         ),
         title: Text('Summary Result', style: TextStyle(color: Colors.black)),
@@ -76,7 +28,9 @@ class _SummaryPageState extends State<SummaryPage> {
         color: const Color(0xFF406363), // Background color for entire screen
         child: Column(
           children: [
-            SizedBox(height: 30),
+            SizedBox(
+              height: 30,
+            ),
             // Mushroom Image
             Container(
               height: 200,
@@ -85,8 +39,7 @@ class _SummaryPageState extends State<SummaryPage> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                    'http://13.70.136.185/${widget.mushroom.photo ?? 'mushrooms/pi318.jpg'}',
-                  ),
+                      'http://13.70.136.185/${mushroom['photo'] ?? 'mushrooms/pi318.jpg'}'),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(16),
@@ -105,12 +58,13 @@ class _SummaryPageState extends State<SummaryPage> {
                   children: [
                     // Title Section
                     Text(
-                      widget.mushroom.name ?? 'Unknown Mushroom',
+                      mushroom['name'] ??
+                          'Unknown Mushroom', // Safe access for name
                       style: TitleTextStyle,
                     ),
                     // Subtitle Section
                     Text(
-                      widget.mushroom.isPoisonous == true
+                      mushroom['is_poisonous'] == true
                           ? 'Poisonous'
                           : 'Not Poisonous',
                       style: SubtitleTextStyle,
@@ -118,7 +72,8 @@ class _SummaryPageState extends State<SummaryPage> {
                     SizedBox(height: 12),
                     // Description
                     Text(
-                      widget.mushroom.description ?? 'No description available',
+                      mushroom['description'] ??
+                          'No description available', // Safe access for description
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
@@ -136,9 +91,10 @@ class _SummaryPageState extends State<SummaryPage> {
                     ),
                     SizedBox(height: 12),
                     // Recipe Details
-                    if (widget.recommendation != null) ...[
+                    if (recommendation != null) ...[
                       Text(
-                        widget.recommendation.title ?? 'No Title',
+                        recommendation['title'] ??
+                            'No Title', // Safe access for title
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -146,8 +102,8 @@ class _SummaryPageState extends State<SummaryPage> {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        widget.recommendation.description ??
-                            'No description available',
+                        recommendation['description'] ??
+                            'No description available', // Safe access for description
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -171,19 +127,20 @@ class _SummaryPageState extends State<SummaryPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      onPressed: saveToHistory, // Change this to saveToHistory
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.black,
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                        child: Text('Save To Library'),
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
                     ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      child: Text('Save To Library'),
+                    ),
+                  ),
                 ],
               ),
             ),

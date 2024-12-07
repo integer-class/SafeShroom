@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:safeshroom/controller/Router.dart';
 import 'package:safeshroom/controller/route_constants.dart';
 import 'package:safeshroom/pages/Component/BotomNavbar.dart';
 import 'package:safeshroom/pages/Component/CustomAppBar.dart';
 import 'package:safeshroom/pages/Component/floatingAction.dart';
-
-
+import 'package:safeshroom/pages/Component/historylist.dart';
 
 class Historypage extends StatefulWidget {
   const Historypage({super.key});
@@ -18,9 +18,10 @@ class _HistorypageState extends State<Historypage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'Library'),
-      body: Center(
-      
-      
+      body: SingleChildScrollView(
+        child: HistoryListTile(
+          onTap:
+          MaterialApp.router),
       ),
       floatingActionButton: floatingAction(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

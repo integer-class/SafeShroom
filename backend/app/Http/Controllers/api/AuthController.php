@@ -25,7 +25,7 @@ class AuthController extends Controller
                 [
                     "user" => Null,
                     "message" => "Invalid login details",
-                    "stus" => "failed",
+                    "status" => "failed",
                 ],
                 401
             );
@@ -102,4 +102,8 @@ class AuthController extends Controller
                 'message' => 'Form for creating a new mushroom is ready',
             ], 200);
         }
+
+        
+
+
 }

@@ -2,7 +2,7 @@ class Mushroom {
   final int id;
   final String name;
   final String description;
-  final String photo;
+  final String ? photo;
   final bool isPoisonous;
   final int isEdible;
   final DateTime createdAt;
