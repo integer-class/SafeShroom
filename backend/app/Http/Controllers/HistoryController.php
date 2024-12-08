@@ -20,7 +20,7 @@ class HistoryController extends Controller
 
     // Get all histories for the user
     $history = History::where('id_user', $validated['id_user'])->get();
-
+    
     // Check if history is empty
     if ($history->isEmpty()) {
         return response()->json([
