@@ -38,6 +38,7 @@ class AuthController extends Controller
             'email' => $user->email,
             'user_token' => $token,
             'name' => $user ->name,
+            'email' => $user->email,
             'token_type' => 'Bearer',
             'user_id' => (String) $user->id,
             'verified' => true,
@@ -70,7 +71,6 @@ class AuthController extends Controller
 
 
         $mushroom = Mushroom::where('name', $name)->first();
-
 
 
         $id = $mushroom->id;
