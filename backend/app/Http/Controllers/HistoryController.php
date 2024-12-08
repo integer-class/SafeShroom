@@ -31,11 +31,11 @@ class HistoryController extends Controller
         $recommendationIds = $history->pluck('id_recommendation')->unique();
     
         // Get mushrooms based on extracted IDs
-        $mushrooms = Mushroom::whereIn('id_mushroom', $mushroomIds)->get();
+        $mushrooms = Mushroom::whereIn('id', $mushroomIds)->get();
     
         // Get recommendations based on extracted IDs (if IDs exist)
         $recommendations = $recommendationIds->isNotEmpty()
-            ? Recommendation::whereIn('id_recommendation', $recommendationIds)->get()
+            ? Recommendation::whereIn('id', $recommendationIds)->get()
             : null;
     
         // Return the response as JSON
