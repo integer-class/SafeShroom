@@ -19,9 +19,11 @@ class _HistorypageState extends State<Historypage> {
     return Scaffold(
       appBar: CustomAppBar(title: 'Library'),
       body: SingleChildScrollView(
-        child: HistoryListTile(
-          onTap:
-          MaterialApp.router),
+        child: Center(
+          child: HistoryListTile(
+            onTap:
+            MaterialApp.router),
+        ),
       ),
       floatingActionButton: floatingAction(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -14,7 +14,7 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: RouteConstants.landing,
-      builder: (context, state) => Landingpage(),
+      builder: (context, state) => Historypage(),
     ),
     GoRoute(
       path: RouteConstants.home,

@@ -16,12 +16,13 @@ class HistoryListTile extends StatelessWidget {
       children: [
         SizedBox(height: 8),
         Container(
+          margin: EdgeInsets.symmetric(vertical: 4,horizontal: 8),
           width: MediaQuery.of(context).size.width * 0.9, 
-          height: 200,
+          height: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             image: DecorationImage(
-              image: AssetImage('image/Edible.png'),
+              image: AssetImage('images/Edible.png'),
               fit: BoxFit.cover,
             ),
             gradient: LinearGradient(
@@ -36,19 +37,13 @@ class HistoryListTile extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Poisonous',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white70),
-                ),
-                SizedBox(height: 8,),
-                Text(
                   'data',
                   style: TextStyle(
+                    fontWeight: FontWeight.bold,
                     fontSize: 16,
                     color: Colors.white
                   ),
