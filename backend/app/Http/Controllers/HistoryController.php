@@ -11,45 +11,41 @@ class HistoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index($id_user)
     {
-    // Validate the request
-    $validated = $request->validate([
-        'id_user' => 'required|exists:users,id',
-    ]);
-
-    // Get all histories for the user
-    $history = History::where('id_user', $validated['id_user'])->get();
+        // Get all histories for the user
+        $history = History::where('id_user', $id_user)->get();
+        
+        // Check if history is empty
+        if ($history->isEmpty()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'No history found for this user.',
+                'mushrooms' => [],
+                'recommendations' => null,
+            ], 200);
+        }
     
-    // Check if history is empty
-    if ($history->isEmpty()) {
+        // Extract unique mushroom and recommendation IDs from history
+        $mushroomIds = $history->pluck('id_mushroom')->unique();
+        $recommendationIds = $history->pluck('id_recommendation')->unique();
+    
+        // Get mushrooms based on extracted IDs
+        $mushrooms = Mushroom::whereIn('id_mushroom', $mushroomIds)->get();
+    
+        // Get recommendations based on extracted IDs (if IDs exist)
+        $recommendations = $recommendationIds->isNotEmpty()
+            ? Recommendation::whereIn('id_recommendation', $recommendationIds)->get()
+            : null;
+    
+        // Return the response as JSON
         return response()->json([
             'status' => 'success',
-            'message' => 'No history found for this user.',
-            'mushrooms' => null,
-            'recommendations' => null,
+            'mushrooms' => $mushrooms,
+            'recommendations' => $recommendations,
         ], 200);
     }
-
-    // Extract unique mushroom and recommendation IDs from history
-    $mushroomIds = $history->pluck('id_mushroom')->unique();
-    $recommendationIds = $history->pluck('id_recommendation')->unique();
-
-    // Get mushrooms based on extracted IDs
-    $mushrooms = Mushroom::whereIn('id_mushroom', $mushroomIds)->get();
-
-    // Get recommendations based on extracted IDs (if IDs exist)
-    $recommendations = $recommendationIds->isNotEmpty()
-        ? Recommendation::whereIn('id_recommendation', $recommendationIds)->get()
-        : null;
-
-    // Return the response as JSON
-    return response()->json([
-        'status' => 'success',
-        'mushrooms' => $mushrooms,
-        'recommendations' => $recommendations,
-    ], 200);
-    }
+    
 
     /**
      * Show the form for creating a new resource.
