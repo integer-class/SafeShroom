@@ -113,7 +113,7 @@ class AuthService {
   }
 
   // Retrieve user ID
-  Future<String?> getUserId() async {
+  Future<String> getUserId() async {
     final authData = await getAuthData();
     return authData?['user_id'];
   }

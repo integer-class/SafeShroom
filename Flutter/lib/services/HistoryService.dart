@@ -10,7 +10,7 @@ class Historyservice {
   }) async {
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl/history'),
+        Uri.parse('$UserbaseUrl/history'),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -36,7 +36,42 @@ class Historyservice {
     }
   }
 
-  
+  Future<Map<String, dynamic>> getHistory({required String userId}) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$UserbaseUrl/history/$userId'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final decodedResponse = jsonDecode(response.body);
+        print('Success: ${decodedResponse['status']}');
+
+        // Check if the message indicates no history
+        if (decodedResponse['message'] == 'No history found for this user.') {
+          print('No history available.');
+          return {
+            'mushrooms': null,
+            'recommendations': null,
+          };
+        }
+
+        return {
+          'mushrooms': decodedResponse['mushrooms'],
+          'recommendations': decodedResponse['recommendations'],
+        };
+      } else {
+        final errorResponse = jsonDecode(response.body);
+        print('Error: ${response.statusCode} - ${errorResponse['message']}');
+        throw Exception('Failed to fetch history: ${errorResponse['message']}');
+      }
+    } catch (e) {
+      print('Exception: $e');
+      throw Exception('Error fetching history: $e');
+    }
+  }
 
   
 }

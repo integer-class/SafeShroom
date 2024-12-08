@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/summary-result', [AuthController::class, 'summary-result']);
         Route::post('/check_mushroom', [CheckMushroomController::class, 'index']);
         Route::post('/history', [HistoryController::class, 'store']);
+        Route::get('/history/{id_user}', [HistoryController::class, 'index']);
 
     });
 

@@ -14,7 +14,7 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: RouteConstants.landing,
-      builder: (context, state) => Historypage(),
+      builder: (context, state) => Landingpage(),
     ),
     GoRoute(
       path: RouteConstants.home,
@@ -30,7 +30,7 @@ final GoRouter appRouter = GoRouter(
     //History actually library same same
     GoRoute(
       path: RouteConstants.history,
-      builder: (context, state) => Historypage(),
+      builder: (context, state) => HistoryPage(),
     ),
     GoRoute(
       path: RouteConstants.guest_history,
