@@ -1,5 +1,7 @@
 class RouteConstants {
-  static const String landing = '/';
+  static const String splash = '/';
+
+  static const String landing = '/landing';
   static const String home = '/home';
 
   static const String catalogue = '/catalogue';

@@ -44,10 +44,12 @@ dependencies:
   shared_preferences: ^2.3.3
   camera: ^0.11.0+2
   image: ^4.3.0
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.14.2"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -55,6 +57,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/Logo_aplikasi.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

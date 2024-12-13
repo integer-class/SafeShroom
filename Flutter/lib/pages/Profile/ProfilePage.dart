@@ -9,12 +9,32 @@ import 'package:safeshroom/services/AuthService.dart';
 class Profilepage extends StatefulWidget {
   const Profilepage({super.key});
 
+
   @override
   State<Profilepage> createState() => _ProfilepageState();
 }
 
 class _ProfilepageState extends State<Profilepage> {
+  String? Username;
+  String? email;
+  final AuthService authService = AuthService();
   @override
+
+ void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  Future<void> getUserData() async {
+    String? _email = await authService.getUserEmail();
+    String? name = await authService.getUserName();
+    setState(() {
+      email = _email;
+      Username = name;
+    });
+  }
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -85,42 +105,43 @@ class _ProfilepageState extends State<Profilepage> {
                 ),
               ),
               const SizedBox(height: 50),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Username',
+              Text(
+                'Username : $Username',
+                textAlign: TextAlign.start,
+                style: SubtitleTextStyle2,
                 ),
-              ),
+              const Divider(thickness: 1.5, color: Colors.black),
               const SizedBox(height: 16),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Email',
+              Text(
+                'Email    : $email',
+                textAlign: TextAlign.start,
+                style: SubtitleTextStyle2,
                 ),
-              ),
+              const Divider(thickness: 1.5, color: Colors.black),
               SizedBox(
                 height: 30,
               ),
               ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      side: BorderSide(color: Colors.black),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      fixedSize: Size(50, 30) ,
-                      
-                    ),
-                    onPressed: () async {
-                       await AuthService().logout();
-                       context.go(RouteConstants.landing);
-                    },
-                    child: Text(
-                      'logout',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  side: BorderSide(color: Colors.black),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
+                  fixedSize: Size(50, 30),
+                ),
+                onPressed: () async {
+                  await AuthService().logout();
+                  context.go(RouteConstants.landing);
+                },
+                child: Text(
+                  'logout',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

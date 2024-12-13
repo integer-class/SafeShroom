@@ -8,10 +8,19 @@ import 'package:safeshroom/pages/Login/SignIn.dart';
 import 'package:safeshroom/pages/Login/SignUp.dart';
 import 'package:safeshroom/pages/Profile/ProfilePage.dart';
 import 'package:safeshroom/pages/Profile/guest_ProfilePage.dart';
-import 'package:safeshroom/controller/route_constants.dart'; 
+import 'package:safeshroom/controller/route_constants.dart';
+import 'package:safeshroom/pages/splash/SplashPage.dart'; 
+
+
 
 final GoRouter appRouter = GoRouter(
+  initialLocation: RouteConstants.splash,
   routes: [
+    
+    GoRoute(
+      path: RouteConstants.splash,
+      builder: (context, state) => SplashPage(),
+    ),
     GoRoute(
       path: RouteConstants.landing,
       builder: (context, state) => Landingpage(),
@@ -20,7 +29,6 @@ final GoRouter appRouter = GoRouter(
       path: RouteConstants.home,
       builder: (context, state) => Homepage(),
     ),
-
 
     GoRoute(
       path: RouteConstants.catalogue,

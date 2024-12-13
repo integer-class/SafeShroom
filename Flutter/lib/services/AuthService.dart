@@ -1,21 +1,26 @@
 import 'dart:convert';
+import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
+import 'package:safeshroom/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'urlVariable.dart';
 
 class AuthService {
   // Save user data as a single JSON object
-  Future<void> saveAuthData(Map<String, dynamic> userData) async {
+  Future<void> saveAuthData(User userData) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('auth_data', json.encode(userData));
+    
+   
   }
 
   // Retrieve user data from shared preferences
-  Future<Map<String, dynamic>?> getAuthData() async {
+  Future<User?> getAuthData() async {
     final prefs = await SharedPreferences.getInstance();
     final authDataString = prefs.getString('auth_data');
+
     if (authDataString != null) {
-      return json.decode(authDataString);
+      return User.fromJson(json.decode(authDataString));
     }
     return null;
   }
@@ -27,7 +32,7 @@ class AuthService {
   }
 
   // Login user
-  Future<Map<String, dynamic>> login(String username, String password) async {
+  Future<Either<String, User>> login(String username, String password) async {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/login'),
@@ -38,34 +43,16 @@ class AuthService {
       );
 
       if (response.statusCode == 200) {
-        final jsonResponse = json.decode(response.body);
+        saveAuthData(User.fromJson(json.decode(response.body)));
 
-        print('Login response: $jsonResponse');
-
-        // Save user data as JSON object
-        await saveAuthData({
-          'user_id': jsonResponse['id'],
-          'user_token': jsonResponse['user_token'],
-          'email': jsonResponse['email'],
-          
-        });
-
-        return {
-          'success': true,
-          'message': 'Login successful',
-          'data': jsonResponse,
-        };
+        return Right(User.fromJson(json.decode(response.body)));
+      } else if (response.statusCode == 401) {
+        return Left('Invalid email or password');
       } else {
-        return {
-          'success': false,
-          'message': json.decode(response.body)['message'] ?? 'Login failed',
-        };
+        return Left('An error occurred: ${response.body}');
       }
     } catch (e) {
-      return {
-        'success': false,
-        'message': 'An error occurred: ${e.toString()}',
-      };
+      return Left('An error occured : $e');
     }
   }
 
@@ -95,7 +82,8 @@ class AuthService {
       } else {
         return {
           'success': false,
-          'message': json.decode(response.body)['message'] ?? 'Registration failed',
+          'message':
+              json.decode(response.body)['message'] ?? 'Registration failed',
         };
       }
     } catch (e) {
@@ -113,14 +101,17 @@ class AuthService {
   }
 
   // Retrieve user ID
-  Future<String> getUserId() async {
+  Future<String?> getUserId() async {
     final authData = await getAuthData();
-    return authData?['user_id'];
+    return authData?.user_id; // Access the 'id' property of the User object
   }
 
-  // Retrieve user token
-  Future<String?> getUserToken() async {
+  Future<String?> getUserEmail() async {
     final authData = await getAuthData();
-    return authData?['user_token'];
+    return authData?.email; // Access the 'id' property of the User object
+  }
+  Future<String?> getUserName() async {
+    final authData = await getAuthData();
+    return authData?.name; // Access the 'id' property of the User object
   }
 }

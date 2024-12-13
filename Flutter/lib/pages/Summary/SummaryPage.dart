@@ -17,6 +17,33 @@ class _SummaryPageState extends State<SummaryPage> {
   final AuthService authService = AuthService();
   final Historyservice historyService = Historyservice();
   bool isLoggedIn = false;
+  String? _userId;
+
+  Future<void> checkLoginStatus() async {
+    bool status = await authService.isLoggedIn();
+    String? Id = await authService.getUserId();
+    setState(() {
+      isLoggedIn = status;
+      _userId = Id;
+    });
+  }
+
+  Future<void> saveToHistory() async {
+    
+    // User is logged in, proceed to save history
+    String _mushroomId = widget.mushroom.id.toString();
+    String? _recommendationId = widget.recommendation?.id?.toString();
+
+    await historyService.addHistory(
+      userId: _userId!,
+      mushroomId: _mushroomId,
+      recommendationId: _recommendationId,
+  );
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Successfully saved to your history.')),
+    );
+  }
 
   @override
   void initState() {
@@ -24,39 +51,6 @@ class _SummaryPageState extends State<SummaryPage> {
     checkLoginStatus();
   }
 
-  Future<void> checkLoginStatus() async {
-    bool status = await authService.isLoggedIn();
-    setState(() {
-      isLoggedIn = status;
-    });
-  }
-
-  Future<void> saveToHistory() async {
-    // Check if the user is logged in
-    String? userId = await authService.getUserId();
-    print("User ID: $userId");
-
-    if (userId != null) {
-      // User is logged in, proceed to save history
-      String mushroomId = widget.mushroom.id.toString();
-      String? recommendationId = widget.recommendation?.id?.toString();
-
-      await historyService.addHistory(
-        userId: userId,
-        mushroomId: mushroomId,
-        recommendationId: recommendationId,
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Successfully saved to your history.')),
-      );
-    } else {
-      // User is not logged in
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please log in to save this to your history.')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,19 +165,21 @@ class _SummaryPageState extends State<SummaryPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      onPressed: saveToHistory, // Change this to saveToHistory
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.black,
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                        child: Text('Save To Library'),
-                      ),
+                    onPressed: () {
+                      if (isLoggedIn) {
+                        saveToHistory(); // Save to history if logged in
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Please log in first.')),
+                        );
+                      }
+                    },
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      child: Text('Save To Library'),
                     ),
+                  ),
                 ],
               ),
             ),

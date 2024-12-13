@@ -6,6 +6,7 @@ import 'package:safeshroom/pages/Component/CustomAppBar.dart';
 import 'package:safeshroom/pages/Component/carouselArticle.dart';
 import 'package:safeshroom/pages/Component/carouselInformation.dart';
 import 'package:safeshroom/pages/Component/floatingAction.dart';
+import 'package:safeshroom/services/AuthService.dart';
 
 
 class Homepage extends StatefulWidget {
@@ -16,6 +17,26 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   
+  bool Isloggedin = false;
+  String? Username;
+  final AuthService authService = AuthService();
+  @override
+
+ void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  Future<void> getUserData() async {
+    String? name = await authService.getUserName();
+    bool loggedin = await authService.isLoggedIn();
+    setState(() {
+      Username = name;
+      Isloggedin = loggedin;
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +65,7 @@ class _HomepageState extends State<Homepage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Hello Bagas', style: HelloTextStyle),
+                    Text(Isloggedin ? 'Hello $Username' : 'Hello', style: HelloTextStyle),
                     SizedBox(height: 6), // Increased spacing between texts
                     Text('Welcome to Safeshroom', style: WelcomeTextStyle),
                     SizedBox(height: 12), // Reduced spacing before "Article"

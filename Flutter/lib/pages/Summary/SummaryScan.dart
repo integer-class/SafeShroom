@@ -1,14 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:safeshroom/Style/FontStyle.dart';
-import 'package:safeshroom/controller/Router.dart';
-import 'package:safeshroom/controller/route_constants.dart';
+import 'package:safeshroom/services/AuthService.dart';
+import 'package:safeshroom/services/HistoryService.dart';
 
-class SummaryScan extends StatelessWidget {
-  final dynamic mushroom; // Add these fields to accept data
+class SummaryScan extends StatefulWidget {
+  final dynamic mushroom;
   final dynamic recommendation;
 
   SummaryScan({required this.mushroom, required this.recommendation});
+
+  @override
+  _SummaryScanState createState() => _SummaryScanState();
+}
+
+class _SummaryScanState extends State<SummaryScan> {
+  final AuthService authService = AuthService();
+  final Historyservice historyService = Historyservice();
+
+  bool isLoggedIn = false;
+  String? _userId;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  Future<void> checkLoginStatus() async {
+    bool status = await authService.isLoggedIn();
+    String? id = await authService.getUserId();
+    setState(() {
+      isLoggedIn = status;
+      _userId = id;
+    });
+  }
+
+  Future<void> saveToHistory() async {
+    if (_userId != null) {
+      String _mushroomId = widget.mushroom['id'].toString();
+      String? recommendationId = widget.recommendation?['id']?.toString();
+
+      await historyService.addHistory(
+        userId: _userId!,
+        mushroomId: _mushroomId,
+        recommendationId: recommendationId,
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Successfully saved to your history.')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please log in to save to history.')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +75,7 @@ class SummaryScan extends StatelessWidget {
         color: const Color(0xFF406363), // Background color for entire screen
         child: Column(
           children: [
-            SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: 30),
             // Mushroom Image
             Container(
               height: 200,
@@ -39,7 +84,7 @@ class SummaryScan extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                      'http://13.70.136.185/${mushroom['photo'] ?? 'mushrooms/pi318.jpg'}'),
+                      'http://13.70.136.185/${widget.mushroom['photo'] ?? 'mushrooms/pi318.jpg'}'),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(16),
@@ -58,13 +103,12 @@ class SummaryScan extends StatelessWidget {
                   children: [
                     // Title Section
                     Text(
-                      mushroom['name'] ??
-                          'Unknown Mushroom', // Safe access for name
+                      widget.mushroom['name'] ?? 'Unknown Mushroom',
                       style: TitleTextStyle,
                     ),
                     // Subtitle Section
                     Text(
-                      mushroom['is_poisonous'] == true
+                      widget.mushroom['is_poisonous'] == true
                           ? 'Poisonous'
                           : 'Not Poisonous',
                       style: SubtitleTextStyle,
@@ -72,8 +116,8 @@ class SummaryScan extends StatelessWidget {
                     SizedBox(height: 12),
                     // Description
                     Text(
-                      mushroom['description'] ??
-                          'No description available', // Safe access for description
+                      widget.mushroom['description'] ??
+                          'No description available',
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
@@ -91,10 +135,9 @@ class SummaryScan extends StatelessWidget {
                     ),
                     SizedBox(height: 12),
                     // Recipe Details
-                    if (recommendation != null) ...[
+                    if (widget.recommendation != null) ...[
                       Text(
-                        recommendation['title'] ??
-                            'No Title', // Safe access for title
+                        widget.recommendation['title'] ?? 'No Title',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -102,8 +145,8 @@ class SummaryScan extends StatelessWidget {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        recommendation['description'] ??
-                            'No description available', // Safe access for description
+                        widget.recommendation['description'] ??
+                            'No description available',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -127,7 +170,15 @@ class SummaryScan extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (isLoggedIn) {
+                        saveToHistory(); // Save to history if logged in
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Please log in first.')),
+                        );
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
                       backgroundColor: Colors.white,
