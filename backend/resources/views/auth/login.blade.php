@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
         name="viewport">
-    <title>Login &mdash; Stisla</title>
+    <title>Login &mdash; ShafeShroom</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet"
@@ -33,14 +33,8 @@
             <div class="d-flex align-items-stretch flex-wrap">
                 <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
                     <div class="m-3 p-4">
-                        <img src="{{ asset('img/stisla-fill.svg') }}"
-                            alt="logo"
-                            width="80"
-                            class="shadow-light rounded-circle mb-5 mt-2">
-                        <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">ShafeShroom</span>
-                        </h4>
-                        <p class="text-muted">Before you get started, you must login or register if you don't already
-                            have an account.</p>
+                        <img src="{{ asset('img/logo.png') }}" alt="logo" width="120" style="margin-left: 80px;">
+                                <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">ShafeShroom</span></h4>
                         <form method="POST"
                             action="#"
                             class="needs-validation"
@@ -115,22 +109,22 @@
                     </div>
                 </div>
                 <div class="col-lg-8 col-12 order-lg-2 min-vh-100 background-walk-y position-relative overlay-gradient-bottom order-1"
-                    data-background="{{ asset('img/unsplash/login-bg.jpg') }}">
-                    <div class="absolute-bottom-left index-2">
-                        <div class="text-light p-5 pb-2">
-                            <div class="mb-5 pb-3">
-                                <h1 class="display-4 font-weight-bold mb-2">Good Morning</h1>
-                                <h5 class="font-weight-normal text-muted-transparent">Malang, Indonesia</h5>
-                            </div>
-                            Photo by <a class="text-light bb"
-                                target="_blank"
-                                href="https://unsplash.com/photos/a8lTjWJJgLA">Justin Kauffman</a> on <a
-                                class="text-light bb"
-                                target="_blank"
-                                href="https://unsplash.com">Unsplash</a>
-                        </div>
-                    </div>
-                </div>
+                data-background="{{ asset('img/unsplash/login-bg.jpg') }}">
+               <div class="position-absolute" style="top: 50%; left: 0; transform: translateY(-50%); padding: 5rem;">
+                   <div class="text-light">
+                       <div class="mb-5 pb-3">
+                           <h1 class="display-4 font-weight-bold mb-2">Good Morning</h1>
+                           <h5 class="font-weight-normal text-muted-transparent">Malang, Indonesia</h5>
+                       </div>
+                   </div>
+               </div>
+               <div class="photo-credit" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);">
+                   Photo by <a class="text-light bb" target="_blank" href="https://unsplash.com/photos/a8lTjWJJgLA">Justin Kauffman</a>
+                   on <a class="text-light bb" target="_blank" href="https://unsplash.com">Unsplash</a>
+               </div>
+           </div>
+           
+
             </div>
         </section>
     </div>
