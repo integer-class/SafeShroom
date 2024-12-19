@@ -84,7 +84,7 @@ class _SummaryScanState extends State<SummaryScan> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                      'http://13.70.136.185/${widget.mushroom['photo'] ?? 'mushrooms/pi318.jpg'}'),
+                      'https://safeshroom.web.id/${widget.mushroom['photo'] ?? 'mushrooms/pi318.jpg'}'),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(16),

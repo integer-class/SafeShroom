@@ -1,5 +1,5 @@
-const String baseUrl = 'http://13.70.136.185/api';
+const String baseUrl = 'https://safeshroom.web.id/api';
 
-const String UserbaseUrl = 'http://13.70.136.185/api/user';
+const String UserbaseUrl = 'https://safeshroom.web.id/api/user';
 
-const String imageUrl = 'http://13.70.136.185';
+const String imageUrl = 'https://safeshroom.web.id';
