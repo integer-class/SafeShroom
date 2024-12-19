@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
-Route::get('/article', [AuthController::class, 'article']);
+Route::get('/article', [HistoryController::class, 'article']);
 
 
 Route::post('/history', [HistoryController::class, 'store']);

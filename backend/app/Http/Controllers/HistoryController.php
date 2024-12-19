@@ -15,7 +15,7 @@ class HistoryController extends Controller
     {
         // Get all histories for the user
         $history = History::where('id_user', $id_user)->get();
-        
+
         // Check if history is empty
         if ($history->isEmpty()) {
             return response()->json([
@@ -25,19 +25,19 @@ class HistoryController extends Controller
                 'recommendations' => null,
             ], 200);
         }
-    
+
         // Extract unique mushroom and recommendation IDs from history
         $mushroomIds = $history->pluck('id_mushroom')->unique();
         $recommendationIds = $history->pluck('id_recommendation')->unique();
-    
+
         // Get mushrooms based on extracted IDs
         $mushrooms = Mushroom::whereIn('id', $mushroomIds)->get();
-    
+
         // Get recommendations based on extracted IDs (if IDs exist)
         $recommendations = $recommendationIds->isNotEmpty()
             ? Recommendation::whereIn('id', $recommendationIds)->get()
             : null;
-    
+
         // Return the response as JSON
         return response()->json([
             'status' => 'success',
@@ -45,7 +45,7 @@ class HistoryController extends Controller
             'recommendations' => $recommendations,
         ], 200);
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -53,6 +53,17 @@ class HistoryController extends Controller
     public function create()
     {
 
+    }
+
+     public function article()
+    {
+
+        $article = Article::all();
+        return response()->json([
+            'status' => 'success',
+            'mushroom' => $article,
+
+        ], 200);
     }
 
     /**

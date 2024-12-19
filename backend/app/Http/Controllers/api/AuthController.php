@@ -53,19 +53,6 @@ class AuthController extends Controller
 
 
 
-    public function article()
-    {
-
-        $article = Article::all();
-        return response()->json([
-            'status' => 'success',
-            'mushroom' => $article,
-
-        ], 200);
-    }
-
-
-
     public function daftar(Request $request)
     {
 
