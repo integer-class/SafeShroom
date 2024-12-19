@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Recommendation;
+use App\Models\Article;
 
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -49,6 +50,22 @@ class AuthController extends Controller
             200
         );
     }
+
+
+
+    public function article()
+    {
+
+        $article = Article::all();
+        return response()->json([
+            'status' => 'success',
+            'mushroom' => $article,
+
+        ], 200);
+    }
+
+
+
     public function daftar(Request $request)
     {
 
@@ -105,7 +122,7 @@ class AuthController extends Controller
             ], 200);
         }
 
-        
+
 
 
 }
