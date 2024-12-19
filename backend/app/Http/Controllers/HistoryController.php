@@ -63,7 +63,7 @@ class HistoryController extends Controller
         $article = Article::all();
         return response()->json([
             'status' => 'success',
-            'mushroom' => $article,
+            'artikel' => $article,
 
         ], 200);
     }
