@@ -5,6 +5,8 @@ use App\Models\History;
 use App\Models\Mushroom;
 use App\Models\Recommendation;
 use Illuminate\Http\Request;
+use App\Models\Article;
+
 
 class HistoryController extends Controller
 {
